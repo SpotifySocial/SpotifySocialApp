@@ -10,6 +10,7 @@
   height: calc(100vh - 120px);
   text-align: center;
   justify-content: center;
+  padding: var(--spacer--sm);
 
   .pre-login--heading {
     font-weight: bold;
@@ -18,7 +19,7 @@
   }
   .pre-login--copy {
     max-width: 456px;
-    padding-bottom: var(--spacer);
+    padding-bottom: var(--spacer--lg);
   }
   .cta--button {
     background: var(--base--black);
@@ -33,5 +34,12 @@
     letter-spacing: 0.04em;
     text-transform: uppercase;
     width: 242px;
+  }
+}
+
+/* Desktop */
+@media only screen and (min-width: 1024px) {
+  .pre-login {
+    padding: 0;
   }
 }
