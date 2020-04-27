@@ -1,0 +1,13 @@
+@import "../../vars.scss";
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap");
+
+.copyright {
+  background: var(--base--black);
+  color: var(--base--white);
+  display: flex;
+  font: 13px/15px "Roboto", sans-serif;
+  height: 28px;
+  justify-content: flex-end;
+  letter-spacing: 0.04em;
+  padding: var(--spacer);
+}
