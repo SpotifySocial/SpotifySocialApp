@@ -1,0 +1,21 @@
+@import url("https://use.typekit.net/drz2vvu.css");
+
+body {
+  background: linear-gradient(140deg, #1b1d35, #171d58);
+}
+.music-buddies {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  height: 100vh;
+
+  .music-buddies--header {
+    color: var(--text--light);
+    font: 30px/37px "proxima-nova", sans-serif;
+    font-weight: 600;
+    max-width: 377px;
+  }
+  .music-buddies--chart {
+    padding-left: var(--spacer--lg);
+  }
+}
