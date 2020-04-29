@@ -20,7 +20,11 @@ function MusicBuddies() {
    return (
       <div class="music-buddies">
         <p className="music-buddies--header">
-          Your top music buddy is Jane Doe who has a 76% similarity quotient
+          Your top music buddy is
+          <span className="music-buddies--dynamic">&nbsp;Jane Doe&nbsp;</span>
+            who has a
+            <span className="music-buddies--dynamic">&nbsp; 76%&nbsp;</span>
+            similarity quotient
         </p>
         <div>
           <HorizontalBar
