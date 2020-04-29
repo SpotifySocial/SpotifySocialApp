@@ -1,11 +1,10 @@
 @import url("https://use.typekit.net/drz2vvu.css");
 
-body {
-  background: linear-gradient(140deg, #1b1d35, #171d58);
-}
 .music-buddies {
   align-items: center;
+  background: var(--base--grey);
   display: flex;
+  flex-direction: column;
   justify-content: center;
   height: 100vh;
 
@@ -15,7 +14,14 @@ body {
     font-weight: 600;
     max-width: 377px;
   }
-  .music-buddies--chart {
-    padding-left: var(--spacer--lg);
+}
+
+/* Desktop */
+@media only screen and (min-width: 1024px) {
+  .music-buddies {
+    flex-direction: row;
+  }
+  .music-buddies--header {
+    padding-right: var(--spacer--lg);
   }
 }
