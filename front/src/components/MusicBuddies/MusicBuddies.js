@@ -28,6 +28,13 @@ function MusicBuddies() {
             height={350}
             data={buddies}
             options={{
+              tooltips: {
+                callbacks: {
+                  label: function (tooltipItems) {
+                    return ' ' + tooltipItems.xLabel + '%';
+                  }
+                }
+              },
             legend:{
               display:false,
             },
