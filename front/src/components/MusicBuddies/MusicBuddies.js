@@ -18,7 +18,7 @@ function MusicBuddies() {
   }
 
    return (
-      <div class="music-buddies">
+      <div className="music-buddies">
         <p className="music-buddies--header">
           Your top music buddy is
           <span className="music-buddies--dynamic">&nbsp;Jane Doe&nbsp;</span>

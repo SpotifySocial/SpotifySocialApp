@@ -4,13 +4,19 @@ import './App.scss';
 import PreLogin from './components/PreLogin/PreLogin'
 import Copyright from './components/Copyright/Copyright'
 import MusicBuddies from './components/MusicBuddies/MusicBuddies'
+import SocialNetwork from './components/SocialNetwork/SocialNetwork'
 
 function App() {
   return (
     <>
-      <PreLogin />
-      <Copyright />
-      <MusicBuddies />
+      <div className="main-navigation">
+        <PreLogin />
+        <Copyright />
+        <MusicBuddies />
+      </div>
+      <div className="sidebar">
+        <SocialNetwork />
+      </div>
     </>
   );
 }

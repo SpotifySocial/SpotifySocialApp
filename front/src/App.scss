@@ -21,3 +21,16 @@ a {
   color: var(--base--white);
   text-decoration: none;
 }
+
+.sidebar {
+  background: var(--base--black);
+  position: fixed;
+  width: 20%;
+  height: 100%;
+  right: 0;
+}
+
+.main-navigation {
+  width: 80%;
+	float: left;
+}
