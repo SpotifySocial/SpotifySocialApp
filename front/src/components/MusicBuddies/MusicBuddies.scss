@@ -13,6 +13,7 @@
     font: 30px/37px "proxima-nova", sans-serif;
     font-weight: 600;
     max-width: 377px;
+    text-align: center;
   }
   .music-buddies--dynamic {
     color: var(--base--green--dark);
@@ -23,8 +24,10 @@
 @media only screen and (min-width: 1024px) {
   .music-buddies {
     flex-direction: row;
-  }
-  .music-buddies--header {
-    padding-right: var(--spacer--lg);
+
+    .music-buddies--header {
+      padding-right: var(--spacer--lg);
+      text-align: left;
+    }
   }
 }

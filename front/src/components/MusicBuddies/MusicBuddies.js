@@ -32,6 +32,14 @@ function MusicBuddies() {
             height={350}
             data={buddies}
             options={{
+              layout: {
+                padding: {
+                  left: 50,
+                  right: 50,
+                  top: 50,
+                  bottom: 50
+                }
+              },
               tooltips: {
                 callbacks: {
                   label: function (tooltipItems) {
