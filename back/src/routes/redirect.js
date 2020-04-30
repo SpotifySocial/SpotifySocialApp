@@ -26,9 +26,10 @@ module.exports = function(req,res,constants,request) {
 	  	res.redirect(401,constants.appRedirectDomain+constants.appErrorRedirectRoute);
 	  	return;
 	  }
-    
+     
     	req.session.access_token = body.access_token;
     	req.session.refresh_token = body.refresh_token;
+      req.session.expiry = new Date()/1000 + body.expires_in;
       res.redirect(200,constants.appRedirectDomain+constants.appOkRedirectRoute);
     });
   }
