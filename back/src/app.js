@@ -8,8 +8,10 @@ const cookieParser = require('cookie-parser');
 var request = require('request'); 
 const constants = require('./constants');
 const routes = require('./routes/routes.js');
+const cors = require('cors');
 
 
+app.use(cors());
 app.use(bodyParser.urlencoded({
   extended: true
 }));
