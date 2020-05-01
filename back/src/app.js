@@ -3,13 +3,29 @@ const app = express();
 const bodyParser = require('body-parser');
 const session = require('express-session');
 const dotenv = require('dotenv').config();
+const querystring = require('querystring');
+const cookieParser = require('cookie-parser');
+var request = require('request'); 
+const constants = require('./constants');
+const routes = require('./routes/routes.js');
+
 
 app.use(bodyParser.urlencoded({
   extended: true
 }));
 app.use(bodyParser.json())
 
-app.use(session({secret: 'secret'}));
+app.use(cookieParser());
+
+app.use(session({secret: process.env.SESSION_SECRET}));
+
+app.get('/login', function(req, res) {
+	routes.login(req,res,constants,querystring);
+});
+
+app.get(constants.backendRedirectRoute, function(req, res) {
+	routes.redirect(req,res,constants,request);
+});
 
 const server = app.listen(process.env.PORT || 8080, () => { 
 	if(!process.env.SPOTIFY_CLIENT_ID || !process.env.SPOTIFY_CLIENT_SECRET) {
