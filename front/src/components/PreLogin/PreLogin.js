@@ -1,21 +1,9 @@
 import React from 'react';
-import axios from "axios";
 
 import './PreLogin.scss';
 import logo from "../../assets/logo-green.png"
 
 function PreLogin() {
-
-  function logIn() {
-    axios
-      .get("http://localhost:8080/login")
-      .then(res => {
-        console.log("success", res);
-      })
-      .catch(error => {
-        console.log("error", error);
-      })
-  }
 
   return (
     <div className="pre-login">
@@ -28,13 +16,12 @@ function PreLogin() {
         Find your top music buddies, today’s anthem, today’s find, today’s
         surprise
       </p>
-      <button
-      type="button"
-      className="cta--button"
-      onClick={logIn}
+      <a
+      className="cta--link"
+      href="http://localhost:8080/login"
       >
         Connect Now
-      </button>
+      </a>
     </div>
   );
 }

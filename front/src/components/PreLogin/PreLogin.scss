@@ -37,17 +37,17 @@
     max-width: 492px;
     padding-bottom: var(--spacer--lg);
   }
-  .cta--button {
+  .cta--link {
     background: var(--base--black);
     border: var(--border--thick) solid var(--base--white);
     border-radius: var(--border-radius--lg);
     color: var(--base--white);
     cursor: pointer;
-    font-size: var(--text--md);
+    font: var(--text--md)/24px "Proxima Nova", sans-serif;
     font-weight: 700;
-    height: 68px;
-    line-height: 24px;
+    padding: 22px 0;
     letter-spacing: 0.04em;
+    text-decoration: none;
     text-transform: uppercase;
     width: 242px;
   }
