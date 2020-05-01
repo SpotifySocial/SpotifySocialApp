@@ -12,6 +12,22 @@
   justify-content: center;
   padding: var(--spacer--sm);
 
+  .pre-login--logo {
+    align-items: center;
+    display: flex;
+    position: absolute;
+    top: 10px;
+  }
+  .pre-login--logo--icon {
+    height: 42px;
+    margin-right: 6px;
+    width: 42px;
+  }
+  .pre-login--logo--text {
+    color: var(--base--green);
+    font: 28px/34px "Proxima Nova", sans-serif;
+    font-weight: 700;
+  }
   .pre-login--heading {
     font-weight: bold;
     font-size: var(--text--lg);

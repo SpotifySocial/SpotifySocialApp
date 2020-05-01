@@ -1,25 +1,32 @@
 @import "../../vars.scss";
 
 .social-network {
+
   hr {
     border: none;
     background-color: var(--border--color);
     height: 1px;
-    width: calc(100% - 24px);
+    width: calc(100% - 50px);
   }
   .social-network--navigation {
     background: none;
     color: var(--base--white);
     border: none;
     border-radius: var(--border-radius--sm);
+    display: flex;
     font: var(--text--md)/24px "Proxima Nova", sans-serif;
     font-weight: 600;
     height: 49px;
-    margin: 12px;
+    justify-content:flex-start;
+    margin: 6px 24px;
     outline: none;
     width: 100%;
   }
   .social-network--navigation:first-of-type {
     background: var(--base--grey);
+  }
+  .social-netowork--icon {
+    margin: 0 var(--spacer--sm);
+    width: 25px;
   }
 }

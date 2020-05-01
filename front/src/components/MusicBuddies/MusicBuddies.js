@@ -3,6 +3,7 @@ import {HorizontalBar} from 'react-chartjs-2';
 import 'chartjs-plugin-datalabels';
 
 import './MusicBuddies.scss';
+import logo from "../../assets/logo-green.png"
 
 function MusicBuddies() {
 
@@ -19,6 +20,10 @@ function MusicBuddies() {
 
    return (
       <div className="music-buddies">
+        <div className="music-buddies--logo">
+          <img src={logo} className="music-buddies--logo--icon" alt="Spotify Social logo" />
+          <p className="music-buddies--logo--text">Spotify Social</p>
+        </div>
         <p className="music-buddies--header">
           Your top music buddy is
           <span className="music-buddies--dynamic">&nbsp;Jane Doe&nbsp;</span>
