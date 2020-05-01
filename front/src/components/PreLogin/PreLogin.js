@@ -1,11 +1,20 @@
 import React from 'react';
+import axios from "axios";
 
 import './PreLogin.scss';
 import logo from "../../assets/logo-green.png"
 
 function PreLogin() {
+
   function logIn() {
-    console.log("Call backend login endpoint here");
+    axios
+      .get("http://localhost:8080/login")
+      .then(res => {
+        console.log("success", res);
+      })
+      .catch(error => {
+        console.log("error", error);
+      })
   }
 
   return (
