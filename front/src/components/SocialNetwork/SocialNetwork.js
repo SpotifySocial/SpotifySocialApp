@@ -111,6 +111,19 @@ export const SocialNetwork = () => {
                 className="social-network--user--icon"
               />
               {user.name}
+              { activeTab === 'users' ? (
+                <button
+                  className="social-network--secondary social-network--spacer"
+                >
+                  Add
+                </button>
+              ) : null }
+              { activeTab === 'buddyRequests' ? (
+                <>
+                  <button className="social-network--primary ">Yay</button>
+                  <button className="social-network--secondary">Nay</button>
+               </>
+             ) : null }
             </li>
           </div>
         ))}

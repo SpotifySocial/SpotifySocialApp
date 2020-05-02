@@ -65,4 +65,27 @@
     height: 30px;
     margin-right: var(--spacer--sm);
   }
+  .social-network--primary,
+  .social-network--secondary {
+    border-radius: 15px;
+    color: var(--base--white);
+    cursor: pointer;
+    font: 12px/15px "Proxima Nova", sans-serif;
+    font-weight: 600;
+    margin-left: 5px;
+    padding: 3px 0;
+    text-transform: uppercase;
+    width: 65px;
+  }
+  .social-network--primary {
+    background: var(--base--green--dark);
+    border: none;
+  }
+  .social-network--secondary {
+    background: none;
+
+  }
+  .social-network--spacer {
+    margin-left: var(--spacer--lg);
+  }
 }
