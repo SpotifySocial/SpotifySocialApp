@@ -86,14 +86,18 @@ export const SocialNetwork = () => {
         Add a Buddy
       </button>
       <hr />
-      <div className="social-network--search">
-        <img src={searchIcon} className="social-network--search--icon" alt="Search Icon"/>
-        <input
-          onChange={event => handleChange(event.target.value)}
-          className="social-network--input"
-          placeholder="Search"
-        />
-      </div>
+      { activeTab === 'buddyRequests' ?
+        null
+        : (
+          <div className="social-network--search">
+            <img src={searchIcon} className="social-network--search--icon" alt="Search Icon"/>
+            <input
+              onChange={event => handleChange(event.target.value)}
+              className="social-network--input"
+              placeholder="Search"
+            />
+          </div>
+        )}
       <ul className="social-network--users">
         {filterDisplay.map((user, index) => (
           <div key={index}>
