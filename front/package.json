@@ -9,7 +9,6 @@
     "chart.js": "^2.9.3",
     "chartjs-plugin-datalabels": "^0.7.0",
     "clsx": "^1.1.0",
-    "dotenv": "^8.2.0",
     "node-sass": "^4.14.0",
     "react": "^16.13.1",
     "react-chartjs-2": "^2.9.0",
