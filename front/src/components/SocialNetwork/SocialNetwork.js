@@ -1,19 +1,41 @@
 import React, { useState } from 'react';
+import clsx from "clsx";
 
 import './SocialNetwork.scss';
-import buddies from "../../assets/buddies.png"
-import buddyRequests from "../../assets/buddy-requests.png"
-import addABuddy from "../../assets/add-a-buddy.png"
+import buddiesIcon from "../../assets/buddies.png"
+import buddyRequestsIcon from "../../assets/buddy-requests.png"
+import addABuddyIcon from "../../assets/add-a-buddy.png"
 import searchIcon from "../../assets/search.png"
+import userIcon from "../../assets/user-icon.png"
 
 export const SocialNetwork = () => {
   const [users] = useState([
+    { photo: "add absolute image url here", name: 'Jane Doe' },
+    { photo: "add absolute image url here", name: 'John Doe' },
+    { photo: "add absolute image url here", name: 'Jill Byrde' },
+  ]);
+  const [buddies] = useState([
     { photo: '/static/media/user-icon.74583f9b.png', name: 'Jane Doe' },
-    { photo: '/static/media/user-icon.74583f9b.png', name: 'John Doe' },
+  ]);
+  const [buddieRequests] = useState([
     { photo: '/static/media/user-icon.74583f9b.png', name: 'Jill Byrde' },
   ]);
+  const [ activeTab, setActiveTab ] = useState('buddies');
   const [ input, setInput ] = useState('');
   const [ filterDisplay, setFilterDisplay ] = useState(users);
+
+  const changeToUsers = () => {
+    setActiveTab('users');
+    setFilterDisplay(users);
+  }
+  const changeToBuddies = () => {
+    setActiveTab('buddies');
+    setFilterDisplay(buddies);
+  }
+  const changeToBuddyRequests = () => {
+    setActiveTab('buddyRequests');
+    setFilterDisplay(buddieRequests);
+  }
 
   const handleChange = event => {
     let oldList = users.map(user => {
@@ -33,16 +55,34 @@ export const SocialNetwork = () => {
 
   return (
     <div className="social-network">
-      <button className="social-network--navigation">
-        <img src={buddies} className="social-netowork--icon" alt="buddies"/>
+      <button
+        className={clsx("social-network--navigation",
+              activeTab === 'buddies' ?
+              "social-network--navigation--selected" : null
+        )}
+        onClick={changeToBuddies}
+      >
+        <img src={buddiesIcon} className="social-netowork--icon" alt="buddies"/>
         Buddies
       </button>
-      <button className="social-network--navigation">
-        <img src={buddyRequests} className="social-netowork--icon" alt="buddy requests"/>
+      <button
+        className={clsx("social-network--navigation",
+              activeTab === 'buddyRequests' ?
+              "social-network--navigation--selected" : null
+        )}
+        onClick={changeToBuddyRequests}
+      >
+        <img src={buddyRequestsIcon} className="social-netowork--icon" alt="buddy requests"/>
         Buddy Requests
       </button>
-      <button className="social-network--navigation">
-        <img src={addABuddy} className="social-netowork--icon" alt="add a buddy"/>
+      <button
+        className={clsx("social-network--navigation",
+              activeTab === 'users' ?
+              "social-network--navigation--selected" : null
+        )}
+        onClick={changeToUsers}
+      >
+        <img src={addABuddyIcon} className="social-netowork--icon" alt="add a buddy"/>
         Add a Buddy
       </button>
       <hr />
@@ -59,7 +99,7 @@ export const SocialNetwork = () => {
           <div key={index}>
             <li className="social-network--user">
               <img
-                src={user.photo}
+                src={userIcon}
                 alt={user.name + "'s photo"}
                 className="social-network--user--icon"
               />

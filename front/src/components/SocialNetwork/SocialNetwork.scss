@@ -14,6 +14,7 @@
   .social-network--navigation {
     background: none;
     color: var(--base--white);
+    cursor: pointer;
     border: none;
     border-radius: var(--border-radius--sm);
     display: flex;
@@ -25,7 +26,7 @@
     outline: none;
     width: 100%;
   }
-  .social-network--navigation:first-of-type {
+  .social-network--navigation--selected {
     background: var(--base--grey);
   }
   .social-netowork--icon {
