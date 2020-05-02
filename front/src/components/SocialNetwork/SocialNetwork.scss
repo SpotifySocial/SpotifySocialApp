@@ -8,6 +8,9 @@
     height: 1px;
     width: calc(100% - 50px);
   }
+  ul {
+    list-style: none;
+  }
   .social-network--navigation {
     background: none;
     color: var(--base--white);
@@ -29,7 +32,35 @@
     margin: 0 var(--spacer--sm);
     width: 25px;
   }
+  .social-network--search {
+    background: var(--base--white);
+    border-radius: 20px;
+    display: flex;
+    width: 246px;
+    margin: var(--spacer--sm) auto var(--spacer--lg) auto;
+    padding: 4px 8px;
+  }
+  .social-network--search--icon {
+    width: 25px;
+  }
+  .social-network--input {
+    border: none;
+    width: 213px;
+  }
   .social-network--users {
     color: var(--text--light);
+    font: var(--text-sm)/22px "Proxima Nova", sans-serif;
+    text-align: center;
+  }
+  .social-network--user {
+    align-items: center;
+    cursor: pointer;
+    display: flex;
+    justify-content: flex-start;
+    margin: 0 0 var(--spacer--sm) var(--spacer--sm);
+  }
+  .social-network--user--icon {
+    height: 30px;
+    margin-right: var(--spacer--sm);
   }
 }

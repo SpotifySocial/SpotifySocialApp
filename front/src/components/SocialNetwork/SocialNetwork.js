@@ -4,12 +4,13 @@ import './SocialNetwork.scss';
 import buddies from "../../assets/buddies.png"
 import buddyRequests from "../../assets/buddy-requests.png"
 import addABuddy from "../../assets/add-a-buddy.png"
+import searchIcon from "../../assets/search.png"
 
 export const SocialNetwork = () => {
   const [users] = useState([
-    { photo: 'Jane Doe photo', name: 'Jane Doe' },
-    { photo: 'John Doe photo', name: 'John Doe' },
-    { photo: 'Jill Byrde photo', name: 'Jill Byrde' },
+    { photo: '/static/media/user-icon.74583f9b.png', name: 'Jane Doe' },
+    { photo: '/static/media/user-icon.74583f9b.png', name: 'John Doe' },
+    { photo: '/static/media/user-icon.74583f9b.png', name: 'Jill Byrde' },
   ]);
   const [ input, setInput ] = useState('');
   const [ filterDisplay, setFilterDisplay ] = useState(users);
@@ -45,14 +46,28 @@ export const SocialNetwork = () => {
         Add a Buddy
       </button>
       <hr />
-      <input onChange={event => handleChange(event.target.value)} />
-      {filterDisplay.map((user, index) => (
-        <div key={index} className="social-network--users">
-          <li>
-            {user.photo} {user.name}
-          </li>
-        </div>
-      ))}
+      <div className="social-network--search">
+        <img src={searchIcon} className="social-network--search--icon" alt="Search Icon"/>
+        <input
+          onChange={event => handleChange(event.target.value)}
+          className="social-network--input"
+          placeholder="Search"
+        />
+      </div>
+      <ul className="social-network--users">
+        {filterDisplay.map((user, index) => (
+          <div key={index}>
+            <li className="social-network--user">
+              <img
+                src={user.photo}
+                alt={user.name + "'s photo"}
+                className="social-network--user--icon"
+              />
+              {user.name}
+            </li>
+          </div>
+        ))}
+      </ul>
     </div>
   );
 }
