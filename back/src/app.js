@@ -30,7 +30,7 @@ app.get(constants.backendRedirectRoute, function(req, res) {
 });
 
 app.get('/logout', function(req, res) {
-	res.clearCookie(constants.loggedInCookieKey,false);
+	res.cookie(constants.loggedInCookieKey,false);
 });
 
 const server = app.listen(process.env.PORT || 8080, () => { 
