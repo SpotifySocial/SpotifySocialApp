@@ -29,6 +29,10 @@ app.get(constants.backendRedirectRoute, function(req, res) {
 	routes.redirect(req,res,constants,request);
 });
 
+app.get('/logout', function(req, res) {
+	res.clearCookie(constants.loggedInCookieKey,false);
+});
+
 const server = app.listen(process.env.PORT || 8080, () => { 
 	if(!process.env.SPOTIFY_CLIENT_ID || !process.env.SPOTIFY_CLIENT_SECRET) {
 		server.close();
