@@ -1,0 +1,40 @@
+@import "../../vars.scss";
+
+.invite-form {
+
+  .invite-form--details {
+    display: flex;
+    justify-content: center;
+  }
+  .invite-form--input {
+    border-radius: var(--border-radius--lg);
+    font-size: 17px;
+    padding: 4px;
+    width: 246px;
+  }
+  .invite-form--button {
+    background: var(--base--green--dark);
+    border: none;
+    border-radius: var(--border-radius--lg);
+    color: var(--base--white);
+    cursor: pointer;
+    font: 12px/15px "Proxima Nova", sans-serif;
+    font-weight: 600;
+    height: 36px;
+    margin-left: 5px;
+    text-transform: uppercase;
+    width: 108px;
+  }
+  .invite-form--message,
+  .invite-form--error {
+    font-size: var(--text--xs);
+    font-weight: 600;
+    padding: var(--spacer--sm) 0;
+  }
+  .invite-form--message {
+    color: var(--base--green--dark);
+  }
+  .invite-form--error {
+    color: var(--error--red);
+  }
+}

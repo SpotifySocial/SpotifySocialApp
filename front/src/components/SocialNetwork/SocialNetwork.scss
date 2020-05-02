@@ -1,6 +1,7 @@
 @import "../../vars.scss";
 
 .social-network {
+  text-align: center;
 
   hr {
     border: none;
@@ -67,7 +68,7 @@
   }
   .social-network--primary,
   .social-network--secondary {
-    border-radius: 15px;
+    border-radius: var(--border-radius--lg);
     color: var(--base--white);
     cursor: pointer;
     font: 12px/15px "Proxima Nova", sans-serif;

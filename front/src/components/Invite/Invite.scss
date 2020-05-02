@@ -1,0 +1,74 @@
+@import "../../vars.scss";
+
+.invite--button {
+  background: var(--base--green--dark);
+  border: none;
+  border-radius: var(--border-radius--lg);
+  color: var(--base--white);
+  font-size: 17px;
+  font-weight: 600;
+  height: 36px;
+  margin-top: var(--spacer--lg);
+  width: 150px;
+}
+.invite--modal {
+  background-color: var(--base--black);
+  border-radius: 30px;
+  bottom: 200px;
+  color: var(--base--white);
+  font-size: 17px;
+  font-weight: normal;
+  height: 209px;
+  position: absolute;
+  padding: var(--spacer--sm) 0;
+  right: calc(20% + 20px);
+  text-align: center;
+  width: 461px;
+
+  .invite--header {
+    font-size: 24px;
+    font-weight: 700;
+  }
+  /* cross button starts */
+  .invite--close {
+    background: none;
+    border: none;
+    cursor: pointer;
+    height: 16px;
+    opacity: 0.3;
+    position: absolute;
+    right: 8px;
+    top: 4px;
+    width: 16px;
+  }
+  .invite--close:hover {
+    opacity: 1;
+  }
+  .invite--close:before,
+  .invite--close:after {
+    background-color: var(--base--white);
+    content: "";
+    height: 16px;
+    outline: none;
+    position: absolute;
+    right: 8px;
+    top: 4px;
+    width: 3px;
+    }
+    .invite--close:before {
+      transform: rotate(45deg);
+    }
+    .invite--close:after {
+      transform: rotate(-45deg);
+    }
+    /* cross button ends */
+}
+
+.invite--overlay {
+  background: none;
+  bottom: 0;
+  left: 0;
+  position: fixed;
+  right: 0;
+  top: 0;
+}

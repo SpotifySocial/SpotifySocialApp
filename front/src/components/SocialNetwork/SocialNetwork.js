@@ -8,6 +8,8 @@ import addABuddyIcon from "../../assets/add-a-buddy.png"
 import searchIcon from "../../assets/search.png"
 import userIcon from "../../assets/user-icon.png"
 
+import Invite from '../Invite/Invite'
+
 export const SocialNetwork = () => {
   const [users] = useState([
     { photo: "add absolute image url here", name: 'Jane Doe' },
@@ -128,6 +130,7 @@ export const SocialNetwork = () => {
           </div>
         ))}
       </ul>
+      <Invite />
     </div>
   );
 }
