@@ -3,7 +3,7 @@ import React from 'react';
 import './PreLogin.scss';
 import logo from "../../assets/logo-green.png"
 
-function PreLogin() {
+export const PreLogin = () => {
 
   return (
     <div className="pre-login">

@@ -6,7 +6,7 @@ import Copyright from './components/Copyright/Copyright'
 import MusicBuddies from './components/MusicBuddies/MusicBuddies'
 import SocialNetwork from './components/SocialNetwork/SocialNetwork'
 
-function App() {
+export const App = () => {
   return (
     <>
       <div className="main-navigation">

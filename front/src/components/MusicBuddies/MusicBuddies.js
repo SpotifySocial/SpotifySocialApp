@@ -5,7 +5,7 @@ import 'chartjs-plugin-datalabels';
 import './MusicBuddies.scss';
 import logo from "../../assets/logo-green.png"
 
-function MusicBuddies() {
+export const MusicBuddies = () => {
 
   const buddies = {
     labels: ['Jane', 'John', 'Jill',
@@ -13,6 +13,8 @@ function MusicBuddies() {
     datasets: [
       {
         backgroundColor: '#62d36e',
+        barPercentage: 0.5,
+        categoryPercentage: 1.0,
         data: [76, 65, 44, 32, 16],
       }
     ]
@@ -57,8 +59,6 @@ function MusicBuddies() {
             },
             scales: {
               yAxes: [{
-                barPercentage: 0.5,
-                categoryPercentage: 1.0,
                 gridLines: {
                   color: 'transparent',
                 },

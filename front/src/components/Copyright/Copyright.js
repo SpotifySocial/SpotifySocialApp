@@ -2,7 +2,7 @@ import React from 'react';
 
 import './Copyright.scss';
 
-function Copyright() {
+export const Copyright = () => {
 
   return (
     <div className="copyright">
