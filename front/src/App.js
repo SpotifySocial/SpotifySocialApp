@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
 import './App.scss';
 import PreLogin from './components/PreLogin/PreLogin'
@@ -7,16 +7,33 @@ import MusicBuddies from './components/MusicBuddies/MusicBuddies'
 import SocialNetwork from './components/SocialNetwork/SocialNetwork'
 
 export const App = () => {
+
+  const [ loggedIn, setLoggedIn ] = useState(false);
+
+  useEffect(() => {
+    let loggedInCookie = document.cookie.match('(^|;) ?' + 'Logged_in' + '=([^;]*)(;|$)');
+    if (loggedInCookie) {
+      setLoggedIn(loggedInCookie);
+    }
+  }, [setLoggedIn]);
+  
   return (
     <>
-      <div className="main-navigation">
-        <PreLogin />
-        <Copyright />
-        <MusicBuddies />
-      </div>
-      <div className="sidebar">
-        <SocialNetwork />
-      </div>
+      { loggedIn ? (
+        <>
+          <div className="main-navigation">
+            <MusicBuddies />
+          </div>
+          <div className="sidebar">
+            <SocialNetwork />
+          </div>
+        </>
+      ) : (
+        <>
+          <PreLogin />
+          <Copyright />
+        </>
+      )}
     </>
   );
 }

@@ -28,7 +28,7 @@ export const Invite = () => {
           />
         )}
       />
-    <button onClick={hideModal} className="invite--close" aria-label="Close Modal" />
+      <button onClick={hideModal} className="invite--close" aria-label="Close Modal" />
     </ReactModal>
   ));
 
