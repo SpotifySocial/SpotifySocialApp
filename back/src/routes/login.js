@@ -6,6 +6,7 @@ module.exports = function(req,res,constants,querystring) {
       client_id: process.env.SPOTIFY_CLIENT_ID,
       scope: constants.authScope,
       redirect_uri: constants.backendRedirectDomain + constants.backendRedirectRoute,
-      state:  process.env.AUTH_COOKIE_VAL
+      state:  process.env.AUTH_COOKIE_VAL,
+      show_dialog: true
     }));
 }

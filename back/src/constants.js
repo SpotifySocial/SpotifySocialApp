@@ -7,5 +7,6 @@ module.exports = {
 	backendRedirectRoute: '/',
 	appRedirectDomain: 'http://localhost:3000',
 	appOkRedirectRoute: '/',
-	appErrorRedirectRoute : '/error'
+	appErrorRedirectRoute : '/error',
+	loggedInCookieKey: 'Logged_in'
 }
