@@ -23,14 +23,17 @@ export const SocialNetwork = () => {
   const [ activeTab, setActiveTab ] = useState('buddies');
   const [ input, setInput ] = useState('');
   const [ filterDisplay, setFilterDisplay ] = useState(users);
+  const [ placeholder, setPlaceholder ] = useState('Search');
 
   const changeToUsers = () => {
     setActiveTab('users');
     setFilterDisplay(users);
+    setPlaceholder('Find Buddies');
   }
   const changeToBuddies = () => {
     setActiveTab('buddies');
     setFilterDisplay(buddies);
+    setPlaceholder('Search');
   }
   const changeToBuddyRequests = () => {
     setActiveTab('buddyRequests');
@@ -94,7 +97,7 @@ export const SocialNetwork = () => {
             <input
               onChange={event => handleChange(event.target.value)}
               className="social-network--input"
-              placeholder="Search"
+              placeholder={placeholder}
             />
           </div>
         )}
