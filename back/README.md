@@ -35,7 +35,7 @@ The primary goals for this backend service is to
 
 ## Sample .env file
 PORT=8080
-SPOTIFY_CLIENT_ID=abcfoobar123
-SPOTIFY_CLIENT_SECRET=69foobar69
-SESSION_SECRET=My_Secret
-AUTH_COOKIE_VAL=secretState
+SPOTIFY_CLIENT_ID={spotify_client_id}
+SPOTIFY_CLIENT_SECRET={spotify_client_secret}
+SESSION_SECRET={session_secret}
+AUTH_COOKIE_VAL={auth_cookie_val}
