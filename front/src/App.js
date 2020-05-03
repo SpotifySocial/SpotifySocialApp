@@ -1,25 +1,40 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useEffect } from 'react';
 
-function App() {
+import './App.scss';
+import PreLogin from './components/PreLogin/PreLogin'
+import Copyright from './components/Copyright/Copyright'
+import MusicBuddies from './components/MusicBuddies/MusicBuddies'
+import SocialNetwork from './components/SocialNetwork/SocialNetwork'
+
+export const App = () => {
+
+  const [ loggedIn, setLoggedIn ] = useState(false);
+
+  useEffect(() => {
+    let loggedInCookie = document.cookie.match('(^|;) ?' + 'Logged_in' + '=([^;]*)(;|$)');
+    if (loggedInCookie) {
+      setLoggedIn(loggedInCookie);
+    }
+  }, [setLoggedIn]);
+  
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      { loggedIn ? (
+        <>
+          <div className="main-navigation">
+            <MusicBuddies />
+          </div>
+          <div className="sidebar">
+            <SocialNetwork />
+          </div>
+        </>
+      ) : (
+        <>
+          <PreLogin />
+          <Copyright />
+        </>
+      )}
+    </>
   );
 }
 

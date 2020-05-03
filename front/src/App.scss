@@ -1,0 +1,36 @@
+@import url("https://use.typekit.net/drz2vvu.css");
+
+html {
+  scroll-behavior: smooth;
+  box-sizing: border-box;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-family: "proxima-nova", sans-serif
+}
+
+a {
+  color: var(--base--white);
+  text-decoration: none;
+}
+
+.sidebar {
+  background: var(--base--black);
+  position: fixed;
+  width: 20%;
+  height: 100%;
+  right: 0;
+}
+
+.main-navigation {
+  width: 80%;
+	float: left;
+}

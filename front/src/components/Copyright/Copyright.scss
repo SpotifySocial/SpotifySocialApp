@@ -1,0 +1,20 @@
+@import "../../vars.scss";
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap");
+
+.copyright {
+  background: var(--base--black);
+  color: var(--base--white);
+  display: flex;
+  font: var(--text--xs)/15px "Roboto", sans-serif;
+  justify-content: center;
+  height: 28px;
+  letter-spacing: 0.04em;
+  padding: var(--spacer--lg);
+}
+
+/* Desktop */
+@media only screen and (min-width: 1024px) {
+  .copyright {
+    justify-content: flex-end;
+  }
+}

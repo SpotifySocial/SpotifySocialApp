@@ -1,0 +1,102 @@
+@import "../../vars.scss";
+
+.social-network {
+  display: none;
+}
+
+/* Desktop */
+// Note - currently only displaying Social Network on larger screens
+@media only screen and (min-width: 1024px) {
+  .social-network {
+    display: block;
+    text-align: center;
+
+    hr {
+      border: none;
+      background-color: var(--border--color);
+      height: 1px;
+      width: calc(100% - 50px);
+    }
+    ul {
+      list-style: none;
+    }
+    .social-network--navigation {
+      background: none;
+      color: var(--base--white);
+      cursor: pointer;
+      border: none;
+      border-radius: var(--border-radius--sm);
+      display: flex;
+      font: var(--text--md)/24px "Proxima Nova", sans-serif;
+      font-weight: 600;
+      height: 49px;
+      justify-content:flex-start;
+      margin: 6px 24px;
+      outline: none;
+      width: 100%;
+    }
+    .social-network--navigation--selected {
+      background: var(--base--grey);
+    }
+    .social-netowork--icon {
+      margin: 0 var(--spacer--sm);
+      width: 25px;
+    }
+    .social-network--search {
+      background: var(--base--white);
+      border-radius: 20px;
+      display: flex;
+      height: 33px;
+      margin: var(--spacer--sm) auto var(--spacer--lg) auto;
+      padding: 4px 8px;
+      width: 246px;
+    }
+    .social-network--search--icon {
+      width: 25px;
+    }
+    .social-network--input {
+      border: none;
+      font-size: 17px;
+      width: 213px;
+    }
+    .social-network--users {
+      color: var(--text--light);
+      font: var(--text-sm)/22px "Proxima Nova", sans-serif;
+      text-align: center;
+    }
+    .social-network--user {
+      align-items: center;
+      cursor: pointer;
+      display: flex;
+      justify-content: flex-start;
+      margin: 0 0 var(--spacer--sm) var(--spacer--sm);
+    }
+    .social-network--user--icon {
+      height: 30px;
+      margin-right: var(--spacer--sm);
+    }
+    .social-network--primary,
+    .social-network--secondary {
+      border-radius: var(--border-radius--lg);
+      color: var(--base--white);
+      cursor: pointer;
+      font: 12px/15px "Proxima Nova", sans-serif;
+      font-weight: 600;
+      margin-left: 5px;
+      padding: 3px 0;
+      text-transform: uppercase;
+      width: 65px;
+    }
+    .social-network--primary {
+      background: var(--base--green--dark);
+      border: none;
+    }
+    .social-network--secondary {
+      background: none;
+
+    }
+    .social-network--spacer {
+      margin-left: var(--spacer--lg);
+    }
+  }
+}

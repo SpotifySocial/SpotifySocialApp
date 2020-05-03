@@ -1,0 +1,61 @@
+@import "../../vars.scss";
+
+.pre-login {
+  align-items: center;
+  background: var(--base--black);
+  color: var(--base--white);
+  display: flex;
+  flex-direction: column;
+  font-size: var(--text-sm);
+  height: calc(100vh - 120px);
+  text-align: center;
+  justify-content: center;
+  padding: var(--spacer--sm);
+
+  .pre-login--logo {
+    align-items: center;
+    display: flex;
+    position: absolute;
+    top: 10px;
+  }
+  .pre-login--logo--icon {
+    height: 42px;
+    margin-right: 6px;
+    width: 42px;
+  }
+  .pre-login--logo--text {
+    color: var(--base--green);
+    font: 28px/34px "Proxima Nova", sans-serif;
+    font-weight: 700;
+  }
+  .pre-login--heading {
+    font-weight: bold;
+    font-size: var(--text--lg);
+    margin-bottom: 0;
+  }
+  .pre-login--copy {
+    max-width: 492px;
+    padding-bottom: var(--spacer--lg);
+  }
+  .cta--link {
+    background: var(--base--black);
+    border: var(--border--thick) solid var(--base--white);
+    border-radius: var(--border-radius--lg);
+    color: var(--base--white);
+    cursor: pointer;
+    font: var(--text--md)/24px "Proxima Nova", sans-serif;
+    font-weight: 700;
+    padding: 22px 0;
+    letter-spacing: 0.04em;
+    text-decoration: none;
+    text-transform: uppercase;
+    width: 242px;
+  }
+}
+
+/* Desktop */
+@media only screen and (min-width: 1024px) {
+  .pre-login {
+    padding: 0;
+  }
+}

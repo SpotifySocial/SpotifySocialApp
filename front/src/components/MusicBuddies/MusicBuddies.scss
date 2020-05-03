@@ -1,0 +1,52 @@
+@import "../../vars.scss";
+@import url("https://use.typekit.net/drz2vvu.css");
+
+.music-buddies {
+  align-items: center;
+  background: var(--base--grey--dark);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100vh;
+
+  .music-buddies--logo {
+    align-items: center;
+    display: flex;
+    position: absolute;
+    left: var(--spacer--lg);
+    top: 10px;
+  }
+  .music-buddies--logo--icon {
+    height: 42px;
+    margin-right: 6px;
+    width: 42px;
+  }
+  .music-buddies--logo--text {
+    color: var(--base--green);
+    font: 28px/34px "Proxima Nova", sans-serif;
+    font-weight: 700;
+  }
+
+  .music-buddies--header {
+    color: var(--text--light);
+    font: 30px/37px "proxima-nova", sans-serif;
+    font-weight: 600;
+    max-width: 377px;
+    text-align: center;
+  }
+  .music-buddies--dynamic {
+    color: var(--base--green--dark);
+  }
+}
+
+/* Desktop */
+@media only screen and (min-width: 1024px) {
+  .music-buddies {
+    flex-direction: row;
+
+    .music-buddies--header {
+      padding-right: var(--spacer--lg);
+      text-align: left;
+    }
+  }
+}
