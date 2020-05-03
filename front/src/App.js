@@ -13,10 +13,10 @@ export const App = () => {
   useEffect(() => {
     let loggedInCookie = document.cookie.match('(^|;) ?' + 'Logged_in' + '=([^;]*)(;|$)');
     if (loggedInCookie) {
-      setLoggedIn(loggedInCookie);
+      setLoggedIn(loggedInCookie[2]);
     }
   }, [setLoggedIn]);
-  
+
   return (
     <>
       { loggedIn ? (
