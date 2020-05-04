@@ -12,7 +12,8 @@ export const App = () => {
 
   useEffect(() => {
     let loggedInCookie = document.cookie.match('(^|;) ?' + 'Logged_in' + '=([^;]*)(;|$)');
-    if (loggedInCookie) {
+    let tokenCookie = document.cookie.match('(^|;) ?' + 'token' + '=([^;]*)(;|$)');
+    if (loggedInCookie && tokenCookie) {
       setLoggedIn(loggedInCookie[2]);
     }
   }, [setLoggedIn]);

@@ -17,6 +17,7 @@
     "express": "^4.17.1",
     "express-session": "^1.17.1",
     "https": "^1.0.0",
+    "mongodb": "^3.5.7",
     "querystring": "^0.2.0",
     "request": "^2.88.2",
     "requests": "^0.3.0"
