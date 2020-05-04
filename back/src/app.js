@@ -60,6 +60,22 @@ app.get('/get/:what', function(req,res) {
 	}
 });
 
+app.get('/new/:what', function(req,res) {
+	if(req.params.what == 'friends') {
+		routes.fetchFriends(req,res,constants,request,helpers,databaseClient);
+		return;
+	}
+
+	if(req.params.what == 'requests') {
+		routes.fetchRequests(req,res,constants,request,helpers,databaseClient);
+		return;
+	}
+	else {
+		res.status(404).send('Invalid route');
+		return;
+	}
+});
+
 const server = app.listen(process.env.PORT || 8080, () => { 
 	if(!process.env.SPOTIFY_CLIENT_ID || !process.env.SPOTIFY_CLIENT_SECRET) {
 		server.close();
