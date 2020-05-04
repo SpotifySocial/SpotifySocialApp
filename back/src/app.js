@@ -54,20 +54,30 @@ app.get('/get/:what', function(req,res) {
 		routes.fetchRequests(req,res,constants,request,helpers,databaseClient);
 		return;
 	}
+
+	if(req.params.what == 'users') {
+		routes.fetchUsers(req,res,constants,request,helpers,databaseClient);
+		return;
+	}
+
 	else {
 		res.status(404).send('Invalid route');
 		return;
 	}
 });
 
-app.get('/new/:what', function(req,res) {
+app.post('/new/:what', function(req,res) {
+	const user_id = req.body.user_id;
+	if(!user_id) {
+		res.status(400).send('Provide a user id in query body');
+	}
 	if(req.params.what == 'friends') {
-		routes.fetchFriends(req,res,constants,request,helpers,databaseClient);
+		routes.fetchFriends(req,res,constants,request,helpers,databaseClient,user_id);
 		return;
 	}
 
 	if(req.params.what == 'requests') {
-		routes.fetchRequests(req,res,constants,request,helpers,databaseClient);
+		routes.fetchRequests(req,res,constants,request,helpers,databaseClient,user_id);
 		return;
 	}
 	else {
