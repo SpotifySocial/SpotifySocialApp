@@ -5,7 +5,7 @@ const session = require('express-session');
 const dotenv = require('dotenv').config();
 const querystring = require('querystring');
 const cookieParser = require('cookie-parser');
-const request = require('request'); 
+const request = require('request-promise'); 
 const constants = require('./constants');
 const helpers = require('./helpers/helpers.js');
 const routes = require('./routes/routes.js');
@@ -42,6 +42,22 @@ app.get('/logout', function(req, res) {
 
 app.get('/profile', function(req, res) {
 	routes.profile(req,res,constants,request,helpers,databaseClient);
+});
+
+app.get('/get/:what', function(req,res) {
+	if(req.params.what == 'friends') {
+		routes.fetchFriends(req,res,constants,request,helpers,databaseClient);
+		return;
+	}
+
+	if(req.params.what == 'requests') {
+		routes.fetchRequests(req,res,constants,request,helpers,databaseClient);
+		return;
+	}
+	else {
+		res.status(404).send('Invalid route');
+		return;
+	}
 });
 
 const server = app.listen(process.env.PORT || 8080, () => { 

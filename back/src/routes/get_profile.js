@@ -9,8 +9,9 @@ module.exports = function(req,res,constants,request,helpers,client) {
     request.get(options, function(error, response, body) {
       if(error) {
       	res.status(400).send('Bad Request, Failed to get Profile');
+      	return;
       }
-      // fetch all users
+      
       const curr_id = body['id'];
       const curr_name = body['display_name'];
       const spotifyUrl = body['external_urls']['spotify'];
@@ -21,7 +22,7 @@ module.exports = function(req,res,constants,request,helpers,client) {
       	'spotifyUrl' : spotifyUrl,
       	'images': images
       };
-      
+
       helpers.users(client,constants).then(users => {
       	var found = false;
       	for ( var id of users.id) {
@@ -38,8 +39,14 @@ module.exports = function(req,res,constants,request,helpers,client) {
       	users.display_name.push(curr_name);
       	helpers.add_users(client,constants,users.id,users.display_name).then(val => {
       		res.status(200).send(returnVal);
-      	}, reason => res.status(500).send('Database Update error'))
+      	}, reason => {
+      		res.status(500).send('Database Update error');
+      		return;
+      	});
 
-      }, reason => res.status(500).send('Database fetch error'));
+      }, reason => {
+      		res.status(500).send('Database Update error');
+      		return;
+      	});
     });
 }

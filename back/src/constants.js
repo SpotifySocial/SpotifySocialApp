@@ -4,6 +4,7 @@ module.exports = {
 	spotifyAuthUrl : 'https://accounts.spotify.com/authorize?',
 	spotifyTokenUrl : 'https://accounts.spotify.com/api/token',
 	spotifyProfileUrl: 'https://api.spotify.com/v1/me',
+	spotifyUserUrl: 'https://api.spotify.com/v1/users/id',
 	backendRedirectDomain: 'http://localhost:'.concat(process.env.PORT),
 	backendRedirectRoute: '/',
 	appRedirectDomain: 'http://localhost:3000',
@@ -15,6 +16,7 @@ module.exports = {
 		database_name: 'spotifySocial',
 		profiles_collection: 'Profiles',
 		friends_collection: 'Friends',
-		users_collection: 'AllUsers'
+		users_collection: 'AllUsers',
+		friends_collection: 'Friends'
 	}
 }

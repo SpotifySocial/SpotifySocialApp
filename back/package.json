@@ -20,6 +20,7 @@
     "mongodb": "^3.5.7",
     "querystring": "^0.2.0",
     "request": "^2.88.2",
+    "request-promise": "^4.2.5",
     "requests": "^0.3.0"
   }
 }

@@ -1,8 +1,9 @@
 module.exports = function(req,res,next,constants,request) {
-  if(req.originalUrl != '/profile') {
+  if(req.originalUrl != '/profile' && !req.originalUrl.includes('/get')) {
     next();
     return;
   }
+  console.log('reset');
   const refresh_token = req.session.refresh_token || req.cookies[constants.tokenCookieKey];
   if(req.session.refresh_token &&  req.session.expiry && req.session.access_token && (new Date()/1000 -  req.session.expiry) > 100 ) {
     next();
