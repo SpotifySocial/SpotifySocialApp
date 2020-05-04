@@ -41,7 +41,7 @@ app.get('/logout', function(req, res) {
 });
 
 app.get('/profile', function(req, res) {
-	routes.profile(req,res,constants,request,helpers);
+	routes.profile(req,res,constants,request,helpers,databaseClient);
 });
 
 const server = app.listen(process.env.PORT || 8080, () => { 

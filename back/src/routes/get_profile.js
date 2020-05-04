@@ -1,4 +1,4 @@
-module.exports = function(req,res,constants,request,helpers) {
+module.exports = function(req,res,constants,request,helpers,client) {
 	const access_token = req.session.access_token;
 	const options = {
       url: constants.spotifyProfileUrl,
@@ -11,8 +11,26 @@ module.exports = function(req,res,constants,request,helpers) {
       	res.status(400).send('Bad Request, Failed to get Profile');
       }
       // fetch all users
-      // check if user is in there
-      // add a user 
-      res.status(200).send(body);
+      const curr_id = body['id'];
+      const curr_name = body['display_name'];
+      helpers.users(client,constants).then(users => {
+      	var found = false;
+      	for ( var id of users.id) {
+      		if(id == curr_id) {
+      			found = true;
+      			break;
+      		}
+      	}
+      	if(found) {
+      		res.status(200).send(body);
+      		return;
+      	}
+      	users.id.push(curr_id);
+      	users.display_name.push(curr_name);
+      	helpers.add_users(client,constants,users.id,users.display_name).then(val => {
+      		res.status(200).send(body);
+      	}, reason => res.status(500).send('Database Update error'))
+
+      }, reason => res.status(500).send('Database fetch error'));
     });
 }

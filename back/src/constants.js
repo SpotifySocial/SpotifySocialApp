@@ -14,6 +14,7 @@ module.exports = {
 	database : {
 		database_name: 'spotifySocial',
 		profiles_collection: 'Profiles',
-		friends_collection: 'Friends'
+		friends_collection: 'Friends',
+		users_collection: 'AllUsers'
 	}
 }

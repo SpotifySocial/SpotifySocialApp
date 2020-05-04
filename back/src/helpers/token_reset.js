@@ -4,8 +4,6 @@ module.exports = function(req,res,next,constants,request) {
     return;
   }
   const refresh_token = req.session.refresh_token || req.cookies[constants.tokenCookieKey];
-  console.log('Refresh' + refresh_token);
-  console.log((req.cookies));
   if(req.session.refresh_token &&  req.session.expiry && req.session.access_token && (new Date()/1000 -  req.session.expiry) > 100 ) {
     next();
     return;
@@ -25,9 +23,6 @@ module.exports = function(req,res,next,constants,request) {
   const resetPromise =  new Promise(function(resolve,reject) {
   	request.post(authOptions, function(error, response, body) {
   		if (error || response.statusCode != 200) {
-        console.log(JSON.stringify(error));
-        console.log(response.statusCode);
-        console.log(body);
   			reject({http_code:401, error_message: 'Refresh Token not successfully reset' });
   			return;
   		}
@@ -40,5 +35,8 @@ module.exports = function(req,res,next,constants,request) {
   	});
   });
 
-  resetPromise.then(reason => next() ,reject => res.status(reject.http_code).send(reject.error_message));
+  resetPromise.then(reason => next() ,reject => { 
+    res.status(400).send(reject.error_message);
+    return;
+  });
 }
