@@ -28,6 +28,10 @@ app.use('/',function(req,res,next) {
 	helpers.reset(req,res,next,constants,request);
 });
 
+app.use('/', function(req,res,next) {
+	helpers.currId(req,res,next,constants,request);
+});
+
 app.get('/login', function(req, res) {
 	routes.login(req,res,constants,querystring);
 });
@@ -37,6 +41,7 @@ app.get(constants.backendRedirectRoute, function(req, res) {
 });
 
 app.get('/logout', function(req, res) {
+	res.clearCookie(constants.tokenCookieKey);
 	res.cookie(constants.loggedInCookieKey,false);
 });
 
@@ -66,24 +71,44 @@ app.get('/get/:what', function(req,res) {
 	}
 });
 
-app.post('/new/:what', function(req,res) {
-	const user_id = req.body.user_id;
+app.get('/new/:what', function(req,res) {
+	//const user_id = req.body.user_id;
+	const user_id = '22e6n5fmjsvscvp8dzkg33n10';
 	if(!user_id) {
 		res.status(400).send('Provide a user id in query body');
 	}
-	if(req.params.what == 'friends') {
-		routes.fetchFriends(req,res,constants,request,helpers,databaseClient,user_id);
-		return;
-	}
 
-	if(req.params.what == 'requests') {
-		routes.fetchRequests(req,res,constants,request,helpers,databaseClient,user_id);
+	helpers.users(databaseClient,constants).then(users => {
+		var found = false;
+		for(var id of users.id) {
+			if(id == user_id){
+				found = true;
+				break;
+			}
+		}
+
+		if(!found) {
+			res.status(400).send('Provide a user id that exists');
+			return;
+		}
+
+		if(req.params.what == 'friend') {
+			routes.newFriends(req,res,constants,request,helpers,databaseClient,user_id);
+			return;
+		}
+
+		if(req.params.what == 'request') {
+			routes.newRequests(req,res,constants,request,helpers,databaseClient,user_id);
+			return;
+		}
+		else {
+			res.status(404).send('Invalid route');
+			return;
+		}
+	}, reject => {
+		res.status(500).send("Database Error: Failed to fetch users");
 		return;
-	}
-	else {
-		res.status(404).send('Invalid route');
-		return;
-	}
+	});
 });
 
 const server = app.listen(process.env.PORT || 8080, () => { 

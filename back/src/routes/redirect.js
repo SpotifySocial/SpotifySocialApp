@@ -32,7 +32,6 @@ module.exports = function(req,res,constants,request) {
       req.session.expiry = new Date()/1000 + body.expires_in;
       res.cookie(constants.loggedInCookieKey,true);
       res.cookie(constants.tokenCookieKey,req.session.refresh_token);
-      console.log(req.session.refresh_token );
       res.redirect(constants.appRedirectDomain+constants.appOkRedirectRoute);
     });
   }

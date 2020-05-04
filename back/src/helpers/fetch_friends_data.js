@@ -1,72 +1,56 @@
 module.exports = function(req,res,constants,request,client) {
 	return new Promise(function(resolve, reject){
-		const access_token = req.session.access_token;
-		console.log(access_token);
-		const options = {
-	      url: constants.spotifyProfileUrl,
-	      headers: { 'Authorization': 'Bearer ' + access_token },
-	      json: true
-	    };
+      	const curr_id = req.session.user_id;
+      	const access_token = req.session.access_token;
+		client.collection(constants.database.friends_collection).find({'_id':curr_id}).toArray(function(err, docs) {
+			if(err) {
+				reject({http_code: 500, error_message: 'Database Error: Cannot find userid'});
+  				return;
+			}
+			
+			if(docs.length == 0) {
+				resolve({friends:[], requests: []});
+  				return;
+			}
+			const friends = docs[0].friends;
+			const requests = docs[0].requests;
+			const friendData = [];
+			const requestData = [];
 
-	    request.get(options, function(error, response, body) {
-	      if(error) {
-	      	res.status(400).send('Bad Request, Failed to get Profile');
-	      	return;
-	      }
-	      	const curr_id = body['id'];
-	      	console.log(curr_id);
-			client.collection(constants.database.friends_collection).find({'_id':curr_id}).toArray(function(err, docs) {
-				if(err) {
-					reject({http_code: 500, error_message: 'Database Error: Cannot find userid'});
-      				return;
-				}
-				console.log(docs);
-				if(docs.length == 0) {
-					resolve({friends:[], requests: []});
-      				return;
-				}
-				const friends = docs[0].friends;
-				const requests = docs[0].requests;
-				const friendData = [];
-				const requestData = [];
+			if(friends.length == 0 && requests.length == 0) {
+				resolve({friends:[], requests: []});
+  				return;
+			}
 
-				console.log(friends);
-				console.log(requests);
-				if(friends.length == 0 && requests.length == 0) {
-					resolve({friends:[], requests: []});
-      				return;
+			const promises = []
+			if(friends.length != 0) {
+				promises.push(getFriendData(friends,request,constants,access_token));
+			}
+			if(requests.length != 0) {
+				promises.push(getFriendData(requests,request,constants,access_token));
+			}
+			Promise.all(promises).then(data => {
+				if(friends.length != 0 && requests.length != 0) {
+					resolve({friends:data[0],requests:data[1]});
+					return;
 				}
 
-				const promises = []
-				if(friends.length != 0) {
-					promises.push(getFriendData(friends,request,constants,access_token));
+				else if(friends.length != 0) {
+					resolve({friends:data[0],requests:[]});
+					return;
 				}
-				if(requests.length != 0) {
-					promises.push(getFriendData(requests,request,constants,access_token));
+				else {
+					resolve({friends:[],requests:data[0]});
+					return;
+
 				}
-				Promise.all(promises).then(data => {
-					if(friends.length != 0 && requests.length != 0) {
-						resolve({friends:data[0],requests:data[1]});
-						return;
-					}
-
-					else if(friends.length != 0) {
-						resolve({friends:data[0],requests:[]});
-						return;
-					}
-					else {
-						resolve({friends:[],requests:data[0]});
-						return;
-
-					}
-					
-				}, err => {
-					reject({http_code: 500, error_message: 'Database Error: Error finding friends'});
-      				return;
-				});
-				//resolve({friends:, requests: getFriendData(requests,request,constants,access_token)});
-				//return;
+				
+			}, err => {
+				reject({http_code: 500, error_message: 'Database Error: Error finding friends'});
+  				return;
 			});
+			//resolve({friends:, requests: getFriendData(requests,request,constants,access_token)});
+			//return;
 		});
 	});
 }

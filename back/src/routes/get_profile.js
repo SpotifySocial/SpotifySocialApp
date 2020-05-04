@@ -1,21 +1,8 @@
-module.exports = function(req,res,constants,request,helpers,client) {
-	const access_token = req.session.access_token;
-	const options = {
-      url: constants.spotifyProfileUrl,
-      headers: { 'Authorization': 'Bearer ' + access_token },
-      json: true
-    };
-
-    request.get(options, function(error, response, body) {
-      if(error) {
-      	res.status(400).send('Bad Request, Failed to get Profile');
-      	return;
-      }
-      
-      const curr_id = body['id'];
-      const curr_name = body['display_name'];
-      const spotifyUrl = body['external_urls']['spotify'];
-      const images = body['images'];
+module.exports = function(req,res,constants,request,helpers,client) {  
+      const curr_id = req.session.user_id;
+      const curr_name = req.session['display_name'];
+      const spotifyUrl = req.session['spotify'];
+      const images = req.session['images'];
       const returnVal = {
       	'id': curr_id,
       	'display_name': curr_name,
@@ -47,6 +34,5 @@ module.exports = function(req,res,constants,request,helpers,client) {
       }, reason => {
       		res.status(500).send('Database Update error');
       		return;
-      	});
-    });
+      });
 }
