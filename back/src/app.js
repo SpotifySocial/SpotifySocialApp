@@ -72,9 +72,8 @@ app.get('/get/:what', function(req,res) {
 	}
 });
 
-app.get('/new/:what', function(req,res) {
-	//const user_id = req.body.user_id;
-	const user_id = '22e6n5fmjsvscvp8dzkg33n10';
+app.post('/new/:what', function(req,res) {
+	const user_id = req.body.user_id;
 	if(!user_id) {
 		res.status(400).send('Provide a user id in query body');
 	}
