@@ -43,6 +43,7 @@ app.get(constants.backendRedirectRoute, function(req, res) {
 app.get('/logout', function(req, res) {
 	res.clearCookie(constants.tokenCookieKey);
 	res.cookie(constants.loggedInCookieKey,false);
+	res.status(200).send('Successfully logged out');
 });
 
 app.get('/profile', function(req, res) {
