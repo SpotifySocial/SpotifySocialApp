@@ -9,6 +9,7 @@
 @media only screen and (min-width: 1024px) {
   .social-network {
     display: block;
+    margin-top: var(--spacer--sm);
     text-align: center;
 
     hr {
