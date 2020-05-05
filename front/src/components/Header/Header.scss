@@ -1,0 +1,53 @@
+@import "../../vars.scss";
+
+.header {
+  align-items: center;
+  background: var(--base--grey--dark);
+  display: flex;
+  justify-content: space-between;
+  position: fixed;
+  width: 80%;
+
+  .header--logo, .header--profile {
+    align-items: center;
+    display: flex;
+  }
+  .header--logo {
+    margin-left: var(--spacer--lg);
+  }
+  .header--profile {
+    color: var(--base--white);
+    font: 16px/19px "Proxima Nova", sans-serif;
+    margin-right: var(--spacer--lg);
+    text-align: right;
+  }
+  .header--logo--icon {
+    height: 42px;
+    margin-right: 6px;
+    width: 42px;
+  }
+  .header--logo--text {
+    color: var(--base--green);
+    font: 28px/34px "Proxima Nova", sans-serif;
+    font-weight: 700;
+  }
+  .header--profile--logout,
+  .header--profile--name {
+    margin: 0 auto;
+  }
+  .header--profile--name {
+    font-weight: 700;
+  }
+  .header--profile--logout {
+    background: none;
+    border: none;
+    color: var(--base--white);
+    cursor: pointer;
+    font: 16px/19px "Proxima Nova", sans-serif;
+    padding: 0;
+  }
+  .header--profile--icon {
+    height: 30px;
+    margin-left: var(--spacer--sm);
+  }
+}

@@ -1,8 +1,8 @@
 @import "../../vars.scss";
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap");
 
-.copyright {
-  background: var(--base--black);
+.copyright--logged-out,
+.copyright--logged-in {
   color: var(--base--white);
   display: flex;
   font: var(--text--xs)/15px "Roboto", sans-serif;
@@ -11,10 +11,22 @@
   letter-spacing: 0.04em;
   padding: var(--spacer--lg);
 }
+.copyright--logged-out {
+  background: var(--base--black);
+}
+.copyright--logged-in {
+  background: var(--base--grey--dark);
+  bottom: 0;
+  position: fixed;
+}
 
 /* Desktop */
 @media only screen and (min-width: 1024px) {
-  .copyright {
+  .copyright--logged-out,
+  .copyright--logged-in {
     justify-content: flex-end;
+  }
+  .copyright--logged-in {
+    width: 80%;
   }
 }
