@@ -10,7 +10,7 @@ module.exports = {
 	appRedirectDomain: 'http://localhost:3000',
 	appOkRedirectRoute: '/',
 	appErrorRedirectRoute : '/error',
-	loggedInCookieKey: 'logged',
+	loggedInCookieKey: 'logged_in',
 	tokenCookieKey: 'token',
 	database : {
 		database_name: 'spotifySocial',
