@@ -5,7 +5,7 @@ const session = require('express-session');
 const dotenv = require('dotenv').config();
 const querystring = require('querystring');
 const cookieParser = require('cookie-parser');
-const request = require('request-promise'); 
+const request = require('request-promise');
 const constants = require('./constants');
 const helpers = require('./helpers/helpers.js');
 const routes = require('./routes/routes.js');
@@ -19,6 +19,12 @@ app.use(bodyParser.urlencoded({
   extended: true
 }));
 app.use(bodyParser.json())
+
+app.use('/', function(req,res,next) {
+  res.header('Access-Control-Allow-Origin', constants.appRedirectDomain);
+  res.header('Access-Control-Allow-Credentials','true');
+  next();
+});
 
 app.use(cookieParser());
 
@@ -43,6 +49,7 @@ app.get(constants.backendRedirectRoute, function(req, res) {
 app.get('/logout', function(req, res) {
 	res.clearCookie(constants.tokenCookieKey);
 	res.cookie(constants.loggedInCookieKey,false);
+  req.session.destroy();
 	res.status(200).send('Successfully logged out');
 });
 
@@ -111,7 +118,7 @@ app.post('/new/:what', function(req,res) {
 	});
 });
 
-const server = app.listen(process.env.PORT || 8080, () => { 
+const server = app.listen(process.env.PORT || 8080, () => {
 	if(!process.env.SPOTIFY_CLIENT_ID || !process.env.SPOTIFY_CLIENT_SECRET) {
 		server.close();
 		return;

@@ -12,15 +12,15 @@ import Invite from '../Invite/Invite'
 
 export const SocialNetwork = () => {
   const [users] = useState([
-    { photo: "add absolute image url here", name: 'Jane Doe' },
-    { photo: "add absolute image url here", name: 'John Doe' },
-    { photo: "add absolute image url here", name: 'Jill Byrde' },
+    { photo: 'add absolute image url here', name: 'Jane Doe' },
+    { photo: 'add absolute image url here', name: 'John Doe' },
+    { photo: 'add absolute image url here', name: 'Jill Byrde' },
   ]);
   const [buddies] = useState([
-    { photo: '/static/media/user-icon.74583f9b.png', name: 'Jane Doe' },
+    { photo: 'add absolute image url here', name: 'Jane Doe' },
   ]);
-  const [buddieRequests] = useState([
-    { photo: '/static/media/user-icon.74583f9b.png', name: 'Jill Byrde' },
+  const [buddyRequests] = useState([
+    { photo: 'add absolute image url here', name: 'Jill Byrde' },
   ]);
   const [ activeTab, setActiveTab ] = useState('buddies');
   const [ input, setInput ] = useState('');
@@ -39,11 +39,12 @@ export const SocialNetwork = () => {
   }
   const changeToBuddyRequests = () => {
     setActiveTab('buddyRequests');
-    setFilterDisplay(buddieRequests);
+    setFilterDisplay(buddyRequests);
   }
 
   const handleChange = event => {
-    let oldList = users.map(user => {
+    let activeUsers = activeTab === 'buddies' ? buddies : users;
+    let oldList = activeUsers.map(user => {
       return { photo: user.photo, name: user.name.toLowerCase() };
     });
     if (event !== '') {
@@ -54,7 +55,7 @@ export const SocialNetwork = () => {
       );
       setFilterDisplay(newList);
     } else {
-      setFilterDisplay(users);
+      setFilterDisplay(activeUsers);
     }
   };
 

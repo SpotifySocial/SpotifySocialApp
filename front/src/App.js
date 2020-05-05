@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import './App.scss';
 import PreLogin from './components/PreLogin/PreLogin'
 import Copyright from './components/Copyright/Copyright'
+import Header from './components/Header/Header'
 import MusicBuddies from './components/MusicBuddies/MusicBuddies'
 import SocialNetwork from './components/SocialNetwork/SocialNetwork'
 
@@ -16,13 +17,19 @@ export const App = () => {
     if (loggedInCookie && tokenCookie) {
       setLoggedIn(loggedInCookie[2]);
     }
-  }, [setLoggedIn]);
+  }, [loggedIn, setLoggedIn]);
+
+  const logOut = (logOutVal) => {
+    setLoggedIn(logOutVal);
+    window.location.reload();
+  }
 
   return (
     <>
       { loggedIn ? (
         <>
           <div className="main-navigation">
+            <Header setLoggedOut={logOut} />
             <MusicBuddies />
           </div>
           <div className="sidebar">
@@ -32,9 +39,9 @@ export const App = () => {
       ) : (
         <>
           <PreLogin />
-          <Copyright />
         </>
       )}
+      <Copyright loggedIn={loggedIn} />
     </>
   );
 }

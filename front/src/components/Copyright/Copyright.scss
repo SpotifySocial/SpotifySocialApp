@@ -11,10 +11,19 @@
   letter-spacing: 0.04em;
   padding: var(--spacer--lg);
 }
+.copyright--logged-in {
+  background: var(--base--grey--dark);
+  bottom: 0;
+  position: fixed;
+}
 
 /* Desktop */
 @media only screen and (min-width: 1024px) {
   .copyright {
     justify-content: flex-end;
+    width: 100%
+  }
+  .copyright--logged-in {
+    width: 80%;
   }
 }
