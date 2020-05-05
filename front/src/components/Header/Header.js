@@ -8,11 +8,10 @@ import profilePhoto from "../../assets/user-icon.png"
 export const Header = ( {setLoggedOut} ) => {
   const logout = () => {
     axios
-      .get('http://localhost:8080/logout')
+      .get('http://localhost:8080/logout', {withCredentials: true})
       .then(res => {
         if (res.status === 200) {
           setLoggedOut(false);
-          console.log("check from app", res, "cookie", document.cookie);
         }
       })
       .catch(error => {

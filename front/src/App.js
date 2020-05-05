@@ -17,10 +17,11 @@ export const App = () => {
     if (loggedInCookie && tokenCookie) {
       setLoggedIn(loggedInCookie[2]);
     }
-  }, [setLoggedIn]);
+  }, [loggedIn, setLoggedIn]);
 
   const logOut = (logOutVal) => {
     setLoggedIn(logOutVal);
+    window.location.reload();
   }
 
   return (
