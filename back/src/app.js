@@ -63,12 +63,17 @@ app.get('/get/:what', function(req,res) {
 		return;
 	}
 
-	if(req.params.what == 'requests') {
+	else if(req.params.what == 'requests') {
 		routes.fetchRequests(req,res,constants,request,helpers,databaseClient);
 		return;
 	}
 
-	if(req.params.what == 'users') {
+	else if(req.params.what == 'sent') {
+		routes.fetchSentRequests(req,res,constants,request,helpers,databaseClient);
+		return;
+	}
+
+	else if(req.params.what == 'users') {
 		routes.fetchUsers(req,res,constants,request,helpers,databaseClient);
 		return;
 	}
@@ -79,15 +84,16 @@ app.get('/get/:what', function(req,res) {
 	}
 });
 
-app.post('/new/:what', function(req,res) {
+app.post('/new/request', function(req,res) {
 	const user_id = req.body.user_id;
 	if(!user_id) {
 		res.status(400).send('Provide a user id in query body');
 	}
 
-	helpers.users(databaseClient,constants).then(users => {
+	console.log(user_id);
+	helpers.users(databaseClient,constants,helpers,request,req.session.access_token,true).then(users => {
 		var found = false;
-		for(var id of users.id) {
+		for(var id of users) {
 			if(id == user_id){
 				found = true;
 				break;
@@ -99,24 +105,60 @@ app.post('/new/:what', function(req,res) {
 			return;
 		}
 
-		if(req.params.what == 'friend') {
-			routes.newFriends(req,res,constants,request,helpers,databaseClient,user_id);
-			return;
-		}
+		routes.newRequests(req,res,constants,request,helpers,databaseClient,user_id);
+		return;
 
-		if(req.params.what == 'request') {
-			routes.newRequests(req,res,constants,request,helpers,databaseClient,user_id);
-			return;
-		}
-		else {
-			res.status(404).send('Invalid route');
-			return;
-		}
 	}, reject => {
 		res.status(500).send("Database Error: Failed to fetch users");
 		return;
 	});
 });
+
+app.get('/update/request', function(req,res) {
+	const user_id = req.body.user_id;
+	const flag = req.body.flag;
+	if(!user_id) {
+		res.status(400).send('Provide a user id in query body');
+	}
+
+	if(!flag) {
+		res.status(400).send('Provide a flag in query body');
+	}
+
+	if (flag == 'true' || flag == 'True')
+		flag = true;
+	if(flag == 'false' || flag == 'False')
+		flag = false;
+
+	if(flag != true && flag != false) {
+		res.status(400).send('Provide a valid flag');		
+		return;
+	}
+
+	helpers.users(databaseClient,constants,helpers,request,req.session.access_token,true).then(users => {
+		var found = false;
+		for(var id of users) {
+			if(id == user_id){
+				found = true;
+				break;
+			}
+		}
+
+		if(!found) {
+			res.status(400).send('Provide a user id that exists');
+			return;
+		}
+
+		routes.updateRequest(req,res,constants,request,helpers,databaseClient,user_id,flag);
+		return;
+
+	}, reject => {
+		res.status(500).send("Database Error: Failed to fetch users");
+		return;
+	});
+});
+
+
 
 const server = app.listen(process.env.PORT || 8080, () => {
 	if(!process.env.SPOTIFY_CLIENT_ID || !process.env.SPOTIFY_CLIENT_SECRET) {

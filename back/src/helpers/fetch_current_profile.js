@@ -1,5 +1,5 @@
 module.exports = function(req,res,next,constants,request) {
-  if(req.originalUrl != '/profile' && !req.originalUrl.includes('/get') && !req.originalUrl.includes('/new')) {
+  if(req.originalUrl != '/profile' && !req.originalUrl.includes('/get') && !req.originalUrl.includes('/new') && !req.originalUrl.includes('/update')) {
     next();
     return;
   }

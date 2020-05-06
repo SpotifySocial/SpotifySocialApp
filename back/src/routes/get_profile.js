@@ -10,9 +10,13 @@ module.exports = function(req,res,constants,request,helpers,client) {
       	'images': images
       };
 
-      helpers.users(client,constants).then(users => {
+      helpers.users(client,constants,helpers,request,req.session.access_token).then(users => {
+            const ids = [];
+            for (var user of users)
+                  ids.push(user.id);
+
       	var found = false;
-      	for ( var id of users.id) {
+      	for ( var id of ids) {
       		if(id == curr_id) {
       			found = true;
       			break;
@@ -22,9 +26,9 @@ module.exports = function(req,res,constants,request,helpers,client) {
       		res.status(200).send(returnVal);
       		return;
       	}
-      	users.id.push(curr_id);
-      	users.display_name.push(curr_name);
-      	helpers.add_users(client,constants,users.id,users.display_name).then(val => {
+
+      	ids.push(curr_id);
+      	helpers.add_users(client,constants,ids,curr_id).then(val => {
       		res.status(200).send(returnVal);
       	}, reason => {
       		res.status(500).send('Database Update error');

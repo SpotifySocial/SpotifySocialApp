@@ -1,10 +1,15 @@
 module.exports = function(req,res,next,constants,request) {
-  if(req.originalUrl != '/profile' && !req.originalUrl.includes('/get') && !req.originalUrl.includes('/new')) {
+  if(req.originalUrl != '/profile' && !req.originalUrl.includes('/get') && !req.originalUrl.includes('/new') && !req.originalUrl.includes('/update')) {
     next();
     return;
   }
 
   const refresh_token = req.session.refresh_token || req.cookies[constants.tokenCookieKey];
+
+  if(!refresh_token) {
+    res.status(401).send("Unauthorized! Could not find refresh token");
+    return;
+  }
   if(req.session.refresh_token &&  req.session.expiry && req.session.access_token && (new Date()/1000 -  req.session.expiry) > 100 ) {
     next();
     return;

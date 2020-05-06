@@ -1,4 +1,4 @@
-module.exports = function(client,constants,ids,names) {
+module.exports = function(client,constants,ids,curr_id) {
 	return new Promise(function(resolve, reject){
 		client.collection(constants.database.users_collection).deleteOne({}, function(err, result) {
 				if(err) {
@@ -6,12 +6,15 @@ module.exports = function(client,constants,ids,names) {
 					return;
 				}
 			client.collection(constants.database.users_collection).insertMany([{
-				id: ids, display_name: names
+				id: ids
 			}],function(err, result) {
 				if(err) {
 					reject(err);
 					return;
 				}
+				client.collection(constants.database.friends_collection).insertMany([{
+					_id: curr_id, requests: [], sent: [], friends: []
+				}])
 				resolve('ok');
 			});
 		});
