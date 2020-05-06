@@ -12,6 +12,7 @@ const routes = require('./routes/routes.js');
 const database = require('./database/database.js');
 const cors = require('cors');
 const MongoClient = require('mongodb').MongoClient;
+const ml = require('./ML/app.js');
 var databaseClient = '';
 
 app.use(cors());
@@ -36,6 +37,10 @@ app.use('/',function(req,res,next) {
 
 app.use('/', function(req,res,next) {
 	helpers.currId(req,res,next,constants,request);
+});
+
+app.use('/ml', function(req,res,next) {
+	ml.middleware(req,res,next,constants,request,databaseClient)
 });
 
 app.use('/', function(req,res,next) {
@@ -166,6 +171,13 @@ app.post('/update/request', function(req,res) {
 	});
 });
 
+app.get('/ml/get/:what', function(req,res) {
+	ml.get(req,res,constants,request,databaseClient);
+});
+
+app.post('/ml/post/:what', function(req,res) {
+	ml.post(req,res,constants,request,databaseClient);
+});
 
 
 const server = app.listen(process.env.PORT || 8080, () => {

@@ -1,9 +1,10 @@
 module.exports = {
 	stateCookie : 'user_auth_cookie',
-	authScope : 'user-read-private user-read-email',
+	authScope : 'user-read-private user-read-email user-library-read playlist-read-private user-read-playback-state user-top-read user-read-playback-position user-read-recently-played user-follow-read',
 	spotifyAuthUrl : 'https://accounts.spotify.com/authorize?',
 	spotifyTokenUrl : 'https://accounts.spotify.com/api/token',
 	spotifyProfileUrl: 'https://api.spotify.com/v1/me',
+	spotifySongUrl: 'https://api.spotify.com/v1/me/tracks',
 	spotifyUserUrl: 'https://api.spotify.com/v1/users/id',
 	backendRedirectDomain: 'http://localhost:'.concat(process.env.PORT),
 	backendRedirectRoute: '/',
