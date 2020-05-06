@@ -1,5 +1,4 @@
 module.exports = function(id,token,client,constants,res) {
-	console.log("WHHHHHHHHYYYYYYYY");
 	client.collection(constants.database.token_collection).find({_id:'Token'}).toArray(function(err, docs) {
 		if(err) {
 			res.status(500).send('Database Update Error');
