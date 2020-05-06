@@ -122,7 +122,7 @@ app.post('/new/request', function(req,res) {
 	});
 });
 
-app.get('/update/request', function(req,res) {
+app.post('/update/request', function(req,res) {
 	const user_id = req.body.user_id;
 	const flag = req.body.flag;
 	if(!user_id) {
