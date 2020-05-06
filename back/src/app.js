@@ -38,6 +38,14 @@ app.use('/', function(req,res,next) {
 	helpers.currId(req,res,next,constants,request);
 });
 
+app.use('/', function(req,res,next) {
+	if(!req.token) {
+		next();
+		return;
+	}
+	helpers.updateToken(req,res,next,constants,databaseClient);
+});
+
 app.get('/login', function(req, res) {
 	routes.login(req,res,constants,querystring);
 });

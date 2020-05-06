@@ -36,6 +36,8 @@ module.exports = function(req,res,next,constants,request) {
       req.session.expiry = new Date()/1000 + body.expires_in;
       req.session.refresh_token = body.refresh_token || refresh_token;
       res.cookie(constants.tokenCookieKey,req.session.refresh_token);
+      if(body.refresh_token !=  refresh_token)
+        req.token = true;
   		resolve(req.session.access_token);
   		return;
   	});

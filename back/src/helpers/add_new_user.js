@@ -14,8 +14,13 @@ module.exports = function(client,constants,ids,curr_id) {
 				}
 				client.collection(constants.database.friends_collection).insertMany([{
 					_id: curr_id, requests: [], sent: [], friends: []
-				}])
-				resolve('ok');
+				}],function(err, result) {
+					if(err) {
+						reject(err);
+						return;
+					}
+					resolve('ok');
+				});
 			});
 		});
 	});

@@ -17,6 +17,6 @@ module.exports = {
 		profiles_collection: 'Profiles',
 		friends_collection: 'Friends',
 		users_collection: 'AllUsers',
-		friends_collection: 'Friends'
+		token_collection: 'Token'
 	}
 }

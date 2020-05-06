@@ -29,6 +29,7 @@ module.exports = function(req,res,constants,request,helpers,client) {
 
       	ids.push(curr_id);
       	helpers.add_users(client,constants,ids,curr_id).then(val => {
+                  req.token = true;
       		res.status(200).send(returnVal);
       	}, reason => {
       		res.status(500).send('Database Update error');
