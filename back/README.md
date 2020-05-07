@@ -140,14 +140,26 @@ a password in our database
 
 ## Endpoints
 
-
-
 ### http://localhost:8080/ml/songs/saved
 - GET request
 - Returns all the users saved tracks
 - Returned HTTP codes and responses:
+	- 200: JSON array where the key is the user_id and the value is the json response from spotify
 	- 400: Could not get saved songs for all users
 
+### http://localhost:8080/ml/songs/top
+- GET request
+- Returns all the users top tracks
+- Returned HTTP codes and responses:
+	- 200: JSON array where the key is the user_id and the value is the json response from spotify
+	- 400: Could not get top songs for all users
+
+### http://localhost:8080/ml/artists/top
+- GET request
+- Returns all the users top artists
+- Returned HTTP codes and responses:
+	- 200: JSON array where the key is the user_id and the value is the json response from spotify
+	- 400: Could not get top artists for all users
 
 
 ## Sample .env file
