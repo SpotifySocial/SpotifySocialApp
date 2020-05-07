@@ -19,7 +19,6 @@ module.exports = function(client,constants,helpers,request,access_token,only_ids
 				return;
 			}
 			helpers.profileData(ids,request,constants,access_token).then(user_data => {
-				console.log(user_data);
 				resolve(user_data);
 				return;
 			}, reject => {

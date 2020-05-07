@@ -34,7 +34,6 @@ function middleware(req,res,next,constants,request,client) {
 				next();
 				return;
 			}, err => {
-				console.log(err);
 				res.status(err.http_code).send(err.error_message);
 				return;
 			});

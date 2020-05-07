@@ -103,7 +103,6 @@ app.post('/new/request', function(req,res) {
 		res.status(400).send('Provide a user id in query body');
 	}
 
-	console.log(user_id);
 	helpers.users(databaseClient,constants,helpers,request,req.session.access_token,true).then(users => {
 		var found = false;
 		for(var id of users) {
