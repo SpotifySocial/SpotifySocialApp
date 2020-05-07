@@ -19,7 +19,7 @@ The primary goals for this backend service is to
 ## Middleware
 
 ### Token Reset
-- Applicable to routes: /profile, /get, /new
+- Applicable to routes: /profile, /get, /new, /update
 - Fetches the user refresh token from either session or cookie
 - If fetched from cookie, it requests for a new access token and appropriately updates the session
 - if fetched from session, it checks expiration and if expired it requests for a new access token and appropriately updates the session
@@ -28,10 +28,16 @@ The primary goals for this backend service is to
 	- 401: Refresh Token not successfully reset 
 
 ### Profile
-- Applicable to routes: /profile, /get, /new
+- Applicable to routes: /profile, /get, /new, /update
 - Fetches user data using the refresh token in the session and adds the user data in the session
 - Returned HTTP codes and responses:
 	- 400: Bad Request, Failed to get Profile
+
+### Update Token
+- Applicable when fetching the access token during Profile middleware the a new refresh token is issued
+- Updates the Refresh token in the backend database
+- Returned HTTP codes and responses:
+	- 500: Database Update Error
 
 Note: The error codes and messages of the middleware can also be returned by the routes which they belong to
 
@@ -71,7 +77,7 @@ Note: The error codes and messages of the middleware can also be returned by the
 - Fetches the friends of the current logged in user
 - Returned HTTP codes and responses:
 	- 200: JSON array. One JSON for every friend. The keys of the JSON are the same as described in /profile
-	- 500: Database Error: Cannot find userid
+	- 500: Internal Server Error! Failed to fetch friend data from ID
 	- 500: Database Error: Error finding friends
 
 ### http://localhost:8080/get/requests
@@ -79,15 +85,16 @@ Note: The error codes and messages of the middleware can also be returned by the
 - Fetches the friend requests of the current logged in user
 - Returned HTTP codes and responses:
 	- 200: JSON array. One JSON for every friend. The keys of the JSON are the same as described in /profile
-	- 500: Database Error: Cannot find userid
+	- 500: Internal Server Error! Failed to fetch friend data from ID
 	- 500: Database Error: Error finding friends
 
 ### http://localhost:8080/get/users
 - GET request with the credentials sent
 - Fetches the all the users 
 - Returned HTTP codes and responses:
-	- 200: JSON. The keys of the JSON are : id, display_name. Both hold arrays. id[index] is the id of one user, display_name[index] is the name of the same user
+	- 200: JSON array. One JSON for every friend. The keys of the JSON are the same as described in /profile
 	- 500: Database Error: Error finding Users
+	- 400: Could not fetch user data
 
 ## Sample .env file
 PORT=8080

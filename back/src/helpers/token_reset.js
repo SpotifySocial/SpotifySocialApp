@@ -44,7 +44,7 @@ module.exports = function(req,res,next,constants,request) {
   });
 
   resetPromise.then(reason => next() ,reject => { 
-    res.status(400).send(reject.error_message);
+    res.status(reject.http_code).send(reject.error_message);
     return;
   });
 }
