@@ -6,6 +6,7 @@ module.exports = {
 	spotifyProfileUrl: 'https://api.spotify.com/v1/me',
 	spotifySavedSongUrl: 'https://api.spotify.com/v1/me/tracks',
 	spotifyTopSongUrl: 'https://api.spotify.com/v1/me/top/tracks',
+	spotifyTopArtistUrl: 'https://api.spotify.com/v1/me/top/artists',
 	spotifyUserUrl: 'https://api.spotify.com/v1/users/id',
 	backendRedirectDomain: 'http://localhost:'.concat(process.env.PORT),
 	backendRedirectRoute: '/',

@@ -13,6 +13,15 @@ function get(req,res,constants,request,client) {
 		}
 	}
 
+	else if(req.params.type == 'artists') {
+		if(req.params.what == 'top')
+			routes.topArtists(req,res,constants,request,helpers);
+		else {
+			res.status(400).send('Bad Request! Invalid Route');
+			return;
+		}
+	}
+
 	else{
 		res.status(400).send('Bad Request! Invalid Route');
 		return;
