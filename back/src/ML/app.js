@@ -35,10 +35,6 @@ function post(req,res,constants,request,client) {
 
 
 function middleware(req,res,next,constants,request,client) {
-	if(req.query.secret != process.env.ML_SECRET) {
-		res.status(401).send('Unauthorized! Please provide valid secret');
-		return;
-	}
 	if(req.method == 'GET') {
 		helpers.fetchIdTokens(req,res,next,constants,request,client).then(data => {
 			req.session.ids = data.ids;

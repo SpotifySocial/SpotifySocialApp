@@ -16,6 +16,10 @@ The primary goals for this backend service is to
 - This is the server to which the front/ should make requests to 
 - Note: PORT is one of the environment variables. If not set, the application defaults to 8080. From this point onwards, the docs assume the PORT environment variable has been set to 8080
 
+There are two main topics - README for Web App and README for Data Science Engine
+
+# README for Web App
+
 ## Middleware
 
 ### Token Reset
@@ -129,6 +133,22 @@ Note: The error codes and messages of the middleware can also be returned by the
 	- 500: Database Error: Cannot find userid
 	- 500: Database Error: Could not add friend
 
+# README for Data Science Engine:
+
+Since these endpoints are only for our internal data science engine, very HTTP request requires a secret query parameter which must exactly match
+a password
+
+## Endpoints
+
+
+
+### http://localhost:8080/ml/songs/saved
+- GET request
+- Returns all the users saved tracks
+- Returned HTTP codes and responses:
+
+
+
 ## Sample .env file
 PORT=8080
 SPOTIFY_CLIENT_ID={spotify_client_id}
@@ -138,3 +158,4 @@ AUTH_COOKIE_VAL={auth_cookie_val}
 MONGO_USERNAME={db_username}
 MONGO_PASSWORD={db_password}
 MONGO_CONNECT_URI={db_connect}
+ML_SECRET={ml_secret}
