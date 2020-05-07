@@ -138,6 +138,16 @@ Note: The error codes and messages of the middleware can also be returned by the
 Since these endpoints are only for our internal data science engine, very HTTP request requires a secret query parameter which must exactly match
 a password in our database
 
+## Middleware
+
+### Fetch ID Tokens
+- Applicable to GET requests
+- Fetches user ids and refresh_tokens from database and puts it in the session
+- Returned HTTP codes and responses:
+	- 500: Database Error: Could not fetch user ids and refresh tokens
+
+Note: The error codes and messages of the middleware can also be returned by the routes which they belong to
+
 ## Endpoints
 
 ### http://localhost:8080/ml/songs/saved
