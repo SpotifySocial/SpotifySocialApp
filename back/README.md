@@ -136,7 +136,7 @@ Note: The error codes and messages of the middleware can also be returned by the
 # README for Data Science Engine:
 
 Since these endpoints are only for our internal data science engine, very HTTP request requires a secret query parameter which must exactly match
-a password
+a password in our database
 
 ## Endpoints
 
@@ -146,6 +146,7 @@ a password
 - GET request
 - Returns all the users saved tracks
 - Returned HTTP codes and responses:
+	- 400: Could not get saved songs for all users
 
 
 

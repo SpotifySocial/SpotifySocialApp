@@ -9,6 +9,6 @@ module.exports = function(req,res,constants,request,helpers) {
 		res.status(200).send(allData);
 		return;
 	}, reject => {
-		res.status(400).send('Could not get saved songs for all users');
+		res.status(400).send('Could not get top artists for all users');
 	})
 }
