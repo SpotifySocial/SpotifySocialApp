@@ -27,8 +27,6 @@ module.exports = function(id,token,client,constants,res) {
 					reject(err);
 					return;
 				}
-
-				next();
 				return;
 			});
 		});

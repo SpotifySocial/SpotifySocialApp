@@ -171,11 +171,11 @@ app.post('/update/request', function(req,res) {
 	});
 });
 
-app.get('/ml/get/:what', function(req,res) {
+app.get('/ml/:type/:what', function(req,res) {
 	ml.get(req,res,constants,request,databaseClient);
 });
 
-app.post('/ml/post/:what', function(req,res) {
+app.post('/ml/:type/:what', function(req,res) {
 	ml.post(req,res,constants,request,databaseClient);
 });
 

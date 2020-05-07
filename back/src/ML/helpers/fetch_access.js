@@ -27,7 +27,7 @@ module.exports = function(req,res,next,constants,request,refresh_tokens,helpers,
 				access_tokens.push(body[i].access_token);
 				if(body[i].refresh_token && body[i].refresh_token != refresh_tokens[i]) {
 					req.session.tokens[i] = body[i].refresh_token;
-					//helpers.editToken(req.session.ids[i],body[i].access_token,client,constants,res);
+					helpers.editToken(req.session.ids[i],body[i].access_token,client,constants,res);
 				}
 			}
 			req.session.access_tokens = access_tokens;

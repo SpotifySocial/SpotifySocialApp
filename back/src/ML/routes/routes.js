@@ -1,3 +1,4 @@
 module.exports = {
-	songs: require('./saved_songs')
+	savedSongs: require('./saved_songs'),
+	topSongs: require('./top_songs')
 }

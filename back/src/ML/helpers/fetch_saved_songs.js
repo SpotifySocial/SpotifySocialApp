@@ -1,6 +1,6 @@
 module.exports = function(constants,request,access_token) {
 	const option = {
-		url: constants.spotifySongUrl,
+		url: constants.spotifySavedSongUrl,
 		headers : { 'Authorization': 'Bearer ' + access_token },
 		json: true
 	}
