@@ -96,6 +96,39 @@ Note: The error codes and messages of the middleware can also be returned by the
 	- 500: Database Error: Error finding Users
 	- 400: Could not fetch user data
 
+### http://localhost:8080/new/request
+- POST request with credentials sent
+- Content-Type: application/json
+- Body parameters: user_id: \<user id of the user to which the current user is sending a friend request to \>
+- Adds the request in current user's sent collection and the user_id's request collection
+- Returned HTTP codes and responses:
+	- 200: Successfully Added friend request
+	- 400: Provide a user id in query body
+	- 400: Provide a user id that exists
+	- 500: Database Error: Could not add friend request
+	- 500: Database Error: Failed to fetch users
+	- 500: Internal Server Error! Failed to fetch friend data from ID
+	- 500: Database Error: Cannot find userid
+
+### http://localhost:8080/update/request
+- POST request with credentials sent
+- Content-Type: application/json
+- Body parameters: user_id: \<user id of the user whos friend request was either accepted or rejected by current user\> flag = true || 'true' || false || 'false' (true if accepted, false if rejected)
+- Based on flag, eithers adds a new friend and removes the friend request from the current user list or simply removes the friend request based on flag value
+- Returned HTTP codes and responses:
+	- 200: Successfully Deleted Friend Request
+	- 200: Successfully Added friend
+	- 400: Provide a user id in query body
+	- 400: Provide a user id that exists
+	- 400: Provide a flag in query body
+	- 400: Provide a valid flag
+	- 400: Bad Request: No friend request found with such user_id
+	- 500: Database Error: Failed to fetch users
+	- 500: Database Error: Could delete friend request
+	- 500: Internal Server Error! Failed to fetch friend data from ID
+	- 500: Database Error: Cannot find userid
+	- 500: Database Error: Could not add friend
+
 ## Sample .env file
 PORT=8080
 SPOTIFY_CLIENT_ID={spotify_client_id}
