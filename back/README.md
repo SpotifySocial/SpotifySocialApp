@@ -146,6 +146,12 @@ a password in our database
 - Returned HTTP codes and responses:
 	- 500: Database Error: Could not fetch user ids and refresh tokens
 
+### Fetch access Tokens
+- Applicable to GET requests
+- Gets Access tokens from session tokens
+- Returned HTTP codes and responses:
+	- 400: Database Error: Could not fetch access_token
+
 Note: The error codes and messages of the middleware can also be returned by the routes which they belong to
 
 ## Endpoints
