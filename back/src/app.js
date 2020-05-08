@@ -62,7 +62,8 @@ app.get(constants.backendRedirectRoute, function(req, res) {
 app.get('/logout', function(req, res) {
 	res.clearCookie(constants.tokenCookieKey);
 	res.cookie(constants.loggedInCookieKey,false);
-  req.session.destroy();
+	res.cookie(constants.redirectCookieKey,false)
+  	req.session.destroy();
 	res.status(200).send('Successfully logged out');
 });
 

@@ -15,6 +15,7 @@ module.exports = {
 	appErrorRedirectRoute : '/error',
 	loggedInCookieKey: 'logged_in',
 	tokenCookieKey: 'token',
+	redirectCookieKey: 'redirect',
 	database : {
 		database_name: 'spotifySocial',
 		profiles_collection: 'Profiles',

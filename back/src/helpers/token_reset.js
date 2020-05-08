@@ -10,7 +10,7 @@ module.exports = function(req,res,next,constants,request) {
     res.status(401).send("Unauthorized! Could not find refresh token");
     return;
   }
-  if(req.session.refresh_token &&  req.session.expiry && req.session.access_token && (new Date()/1000 -  req.session.expiry) > 100 ) {
+  if(req.session.refresh_token &&  req.session.expiry && req.session.access_token && (new Date()/1000 -  req.session.expiry) > 100 && res.cookie(constants.redirectCookieKey) == false) {
     next();
     return;
   }
@@ -38,6 +38,10 @@ module.exports = function(req,res,next,constants,request) {
       res.cookie(constants.tokenCookieKey,req.session.refresh_token);
       if(body.refresh_token !=  refresh_token)
         req.token = true;
+      if(res.cookie(constants.redirectCookieKey) == true) {
+        res.cookie(constants.redirectCookieKey,false);
+        req.token = true;
+      }
   		resolve(req.session.access_token);
   		return;
   	});
