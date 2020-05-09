@@ -131,7 +131,7 @@ export const SocialNetwork = () => {
                 alt={user.displayName + "'s photo"}
                 className="social-network--user--icon"
               />
-              {user.displayName}
+            <a href={user.spotifyUrl} target="blank" rel="noopener noreferrer">{user.displayName}</a>
               { activeTab === 'users' ? (
                 <button
                   className="social-network--secondary social-network--spacer"
