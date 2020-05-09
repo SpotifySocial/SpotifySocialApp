@@ -1,11 +1,16 @@
 module.exports = function(req,res,next,constants,request) {
-  if(req.originalUrl != '/profile' && !req.originalUrl.includes('/get') && !req.originalUrl.includes('/new')) {
+  if(req.originalUrl != '/profile' && !req.originalUrl.includes('/get') && !req.originalUrl.includes('/new') && !req.originalUrl.includes('/update')) {
     next();
     return;
   }
 
   const refresh_token = req.session.refresh_token || req.cookies[constants.tokenCookieKey];
-  if(req.session.refresh_token &&  req.session.expiry && req.session.access_token && (new Date()/1000 -  req.session.expiry) > 100 ) {
+
+  if(!refresh_token) {
+    res.status(401).send("Unauthorized! Could not find refresh token");
+    return;
+  }
+  if(req.session.refresh_token &&  req.session.expiry && req.session.access_token && (new Date()/1000 -  req.session.expiry) > 100 && res.cookie(constants.redirectCookieKey) == false) {
     next();
     return;
   }
@@ -31,13 +36,19 @@ module.exports = function(req,res,next,constants,request) {
       req.session.expiry = new Date()/1000 + body.expires_in;
       req.session.refresh_token = body.refresh_token || refresh_token;
       res.cookie(constants.tokenCookieKey,req.session.refresh_token);
+      if(body.refresh_token !=  refresh_token)
+        req.token = true;
+      if(res.cookie(constants.redirectCookieKey) == true) {
+        res.cookie(constants.redirectCookieKey,false);
+        req.token = true;
+      }
   		resolve(req.session.access_token);
   		return;
   	});
   });
 
   resetPromise.then(reason => next() ,reject => { 
-    res.status(400).send(reject.error_message);
+    res.status(reject.http_code).send(reject.error_message);
     return;
   });
 }

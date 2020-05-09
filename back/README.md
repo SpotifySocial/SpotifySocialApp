@@ -16,10 +16,14 @@ The primary goals for this backend service is to
 - This is the server to which the front/ should make requests to 
 - Note: PORT is one of the environment variables. If not set, the application defaults to 8080. From this point onwards, the docs assume the PORT environment variable has been set to 8080
 
+There are two main topics - README for Web App and README for Data Science Engine
+
+# README for Web App
+
 ## Middleware
 
 ### Token Reset
-- Applicable to routes: /profile, /get, /new
+- Applicable to routes: /profile, /get, /new, /update
 - Fetches the user refresh token from either session or cookie
 - If fetched from cookie, it requests for a new access token and appropriately updates the session
 - if fetched from session, it checks expiration and if expired it requests for a new access token and appropriately updates the session
@@ -28,10 +32,16 @@ The primary goals for this backend service is to
 	- 401: Refresh Token not successfully reset 
 
 ### Profile
-- Applicable to routes: /profile, /get, /new
+- Applicable to routes: /profile, /get, /new, /update
 - Fetches user data using the refresh token in the session and adds the user data in the session
 - Returned HTTP codes and responses:
 	- 400: Bad Request, Failed to get Profile
+
+### Update Token
+- Applicable when fetching the access token during Profile middleware the a new refresh token is issued
+- Updates the Refresh token in the backend database
+- Returned HTTP codes and responses:
+	- 500: Database Update Error
 
 Note: The error codes and messages of the middleware can also be returned by the routes which they belong to
 
@@ -71,7 +81,7 @@ Note: The error codes and messages of the middleware can also be returned by the
 - Fetches the friends of the current logged in user
 - Returned HTTP codes and responses:
 	- 200: JSON array. One JSON for every friend. The keys of the JSON are the same as described in /profile
-	- 500: Database Error: Cannot find userid
+	- 500: Internal Server Error! Failed to fetch friend data from ID
 	- 500: Database Error: Error finding friends
 
 ### http://localhost:8080/get/requests
@@ -79,15 +89,94 @@ Note: The error codes and messages of the middleware can also be returned by the
 - Fetches the friend requests of the current logged in user
 - Returned HTTP codes and responses:
 	- 200: JSON array. One JSON for every friend. The keys of the JSON are the same as described in /profile
-	- 500: Database Error: Cannot find userid
+	- 500: Internal Server Error! Failed to fetch friend data from ID
 	- 500: Database Error: Error finding friends
 
 ### http://localhost:8080/get/users
 - GET request with the credentials sent
 - Fetches the all the users 
 - Returned HTTP codes and responses:
-	- 200: JSON. The keys of the JSON are : id, display_name. Both hold arrays. id[index] is the id of one user, display_name[index] is the name of the same user
+	- 200: JSON array. One JSON for every friend. The keys of the JSON are the same as described in /profile
 	- 500: Database Error: Error finding Users
+	- 400: Could not fetch user data
+
+### http://localhost:8080/new/request
+- POST request with credentials sent
+- Content-Type: application/json
+- Body parameters: user_id: \<user id of the user to which the current user is sending a friend request to \>
+- Adds the request in current user's sent collection and the user_id's request collection
+- Returned HTTP codes and responses:
+	- 200: Successfully Added friend request
+	- 400: Provide a user id in query body
+	- 400: Provide a user id that exists
+	- 500: Database Error: Could not add friend request
+	- 500: Database Error: Failed to fetch users
+	- 500: Internal Server Error! Failed to fetch friend data from ID
+	- 500: Database Error: Cannot find userid
+
+### http://localhost:8080/update/request
+- POST request with credentials sent
+- Content-Type: application/json
+- Body parameters: user_id: \<user id of the user whos friend request was either accepted or rejected by current user\> flag = true || 'true' || false || 'false' (true if accepted, false if rejected)
+- Based on flag, eithers adds a new friend and removes the friend request from the current user list or simply removes the friend request based on flag value
+- Returned HTTP codes and responses:
+	- 200: Successfully Deleted Friend Request
+	- 200: Successfully Added friend
+	- 400: Provide a user id in query body
+	- 400: Provide a user id that exists
+	- 400: Provide a flag in query body
+	- 400: Provide a valid flag
+	- 400: Bad Request: No friend request found with such user_id
+	- 500: Database Error: Failed to fetch users
+	- 500: Database Error: Could delete friend request
+	- 500: Internal Server Error! Failed to fetch friend data from ID
+	- 500: Database Error: Cannot find userid
+	- 500: Database Error: Could not add friend
+
+# README for Data Science Engine:
+
+Since these endpoints are only for our internal data science engine, very HTTP request requires a secret query parameter which must exactly match
+a password in our database
+
+## Middleware
+
+### Fetch ID Tokens
+- Applicable to GET requests
+- Fetches user ids and refresh_tokens from database and puts it in the session
+- Returned HTTP codes and responses:
+	- 500: Database Error: Could not fetch user ids and refresh tokens
+
+### Fetch access Tokens
+- Applicable to GET requests
+- Gets Access tokens from session tokens
+- Returned HTTP codes and responses:
+	- 400: Database Error: Could not fetch access_token
+
+Note: The error codes and messages of the middleware can also be returned by the routes which they belong to
+
+## Endpoints
+
+### http://localhost:8080/ml/songs/saved
+- GET request
+- Returns all the users saved tracks
+- Returned HTTP codes and responses:
+	- 200: JSON array where the key is the user_id and the value is the json response from spotify
+	- 400: Could not get saved songs for all users
+
+### http://localhost:8080/ml/songs/top
+- GET request
+- Returns all the users top tracks
+- Returned HTTP codes and responses:
+	- 200: JSON array where the key is the user_id and the value is the json response from spotify
+	- 400: Could not get top songs for all users
+
+### http://localhost:8080/ml/artists/top
+- GET request
+- Returns all the users top artists
+- Returned HTTP codes and responses:
+	- 200: JSON array where the key is the user_id and the value is the json response from spotify
+	- 400: Could not get top artists for all users
+
 
 ## Sample .env file
 PORT=8080
@@ -98,3 +187,4 @@ AUTH_COOKIE_VAL={auth_cookie_val}
 MONGO_USERNAME={db_username}
 MONGO_PASSWORD={db_password}
 MONGO_CONNECT_URI={db_connect}
+ML_SECRET={ml_secret}
