@@ -3,7 +3,6 @@ import axios from 'axios'
 
 import './Header.scss';
 import logo from "../../assets/logo-green.png"
-import profilePhoto from "../../assets/user-icon.png"
 
 export const Header = ( {setLoggedOut} ) => {
 

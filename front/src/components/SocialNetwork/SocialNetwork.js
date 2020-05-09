@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios'
 import clsx from "clsx";
 
 import './SocialNetwork.scss';
@@ -11,21 +12,38 @@ import userIcon from "../../assets/user-icon.png"
 import Invite from '../Invite/Invite'
 
 export const SocialNetwork = () => {
-  const [users] = useState([
-    { photo: 'add absolute image url here', name: 'Jane Doe' },
-    { photo: 'add absolute image url here', name: 'John Doe' },
-    { photo: 'add absolute image url here', name: 'Jill Byrde' },
-  ]);
+  const [ users, setUsers ] = useState([]);
   const [buddies] = useState([
-    { photo: 'add absolute image url here', name: 'Jane Doe' },
+    { imageUrl: 'add absolute image url here', displayName: 'Jane Doe' },
   ]);
   const [buddyRequests] = useState([
-    { photo: 'add absolute image url here', name: 'Jill Byrde' },
+    { imageUrl: 'add absolute image url here', displayName: 'Jill Byrde' },
   ]);
   const [ activeTab, setActiveTab ] = useState('buddies');
   const [ input, setInput ] = useState('');
   const [ filterDisplay, setFilterDisplay ] = useState(users);
   const [ placeholder, setPlaceholder ] = useState('Search');
+
+  useEffect(() => {
+    axios
+      .get('http://localhost:8080/get/users', {withCredentials: true})
+      .then(res => {
+        if (res.status === 200) {
+          let tempUsers = res.data.map(user => {
+            return {
+              displayName: user.display_name,
+              spotifyUrl: user.spotifyUrl,
+              imageUrl: user.images[0].url,
+            };
+          });
+          setUsers(tempUsers);
+          console.log('check', users);
+        }
+      })
+      .catch(error => {
+        console.log('error', error);
+      })
+  });
 
   const changeToUsers = () => {
     setActiveTab('users');
@@ -45,13 +63,13 @@ export const SocialNetwork = () => {
   const handleChange = event => {
     let activeUsers = activeTab === 'buddies' ? buddies : users;
     let oldList = activeUsers.map(user => {
-      return { photo: user.photo, name: user.name.toLowerCase() };
+      return { imageUrl: user.photo, displayName: user.displayName.toLowerCase() };
     });
     if (event !== '') {
       let newList = [];
       setInput(event);
       newList = oldList.filter(user =>
-        user.name.includes(input.toLowerCase())
+        user.displayName.includes(input.toLowerCase())
       );
       setFilterDisplay(newList);
     } else {
@@ -109,11 +127,11 @@ export const SocialNetwork = () => {
           <div key={index}>
             <li className="social-network--user">
               <img
-                src={userIcon}
-                alt={user.name + "'s photo"}
+                src={user.imageUrl}
+                alt={user.displayName + "'s photo"}
                 className="social-network--user--icon"
               />
-              {user.name}
+              {user.displayName}
               { activeTab === 'users' ? (
                 <button
                   className="social-network--secondary social-network--spacer"
