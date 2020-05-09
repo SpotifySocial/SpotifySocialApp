@@ -7,24 +7,55 @@ import buddiesIcon from "../../assets/buddies.png"
 import buddyRequestsIcon from "../../assets/buddy-requests.png"
 import addABuddyIcon from "../../assets/add-a-buddy.png"
 import searchIcon from "../../assets/search.png"
-import userIcon from "../../assets/user-icon.png"
 
 import Invite from '../Invite/Invite'
 
 export const SocialNetwork = () => {
+  const [ buddies, setBuddies ] = useState([]);
+  const [ buddyRequests, setBuddyRequests ] = useState([]);
   const [ users, setUsers ] = useState([]);
-  const [buddies] = useState([
-    { imageUrl: 'add absolute image url here', displayName: 'Jane Doe' },
-  ]);
-  const [buddyRequests] = useState([
-    { imageUrl: 'add absolute image url here', displayName: 'Jill Byrde' },
-  ]);
   const [ activeTab, setActiveTab ] = useState('buddies');
   const [ input, setInput ] = useState('');
   const [ filterDisplay, setFilterDisplay ] = useState(users);
   const [ placeholder, setPlaceholder ] = useState('Search');
 
   useEffect(() => {
+    axios
+      .get('http://localhost:8080/get/users', {withCredentials: true})
+      .then(res => {
+        if (res.status === 200) {
+          let tempBuddyRequests = res.data.map(user => {
+            return {
+              displayName: user.display_name,
+              spotifyUrl: user.spotifyUrl,
+              imageUrl: user.images[0].url,
+            };
+          });
+          setBuddyRequests(tempBuddyRequests);
+        }
+      })
+      .catch(error => {
+        console.log('error', error);
+      })
+
+    axios
+      .get('http://localhost:8080/get/users', {withCredentials: true})
+      .then(res => {
+        if (res.status === 200) {
+          let tempBuddies = res.data.map(user => {
+            return {
+              displayName: user.display_name,
+              spotifyUrl: user.spotifyUrl,
+              imageUrl: user.images[0].url,
+            };
+          });
+          setBuddies(tempBuddies);
+        }
+      })
+      .catch(error => {
+        console.log('error', error);
+      })
+
     axios
       .get('http://localhost:8080/get/users', {withCredentials: true})
       .then(res => {
@@ -37,7 +68,6 @@ export const SocialNetwork = () => {
             };
           });
           setUsers(tempUsers);
-          console.log('check', users);
         }
       })
       .catch(error => {
