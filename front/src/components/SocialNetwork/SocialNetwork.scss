@@ -66,16 +66,27 @@
       text-align: center;
     }
     .social-network--user {
-      align-items: center;
       cursor: pointer;
       display: flex;
-      justify-content: flex-start;
-      margin: 0 0 var(--spacer--sm) var(--spacer--sm);
-    }
-    .social-network--user--icon {
-      border-radius: var(--border-radius--lg);
-      height: 30px;
-      margin-right: var(--spacer--sm);
+      justify-content: space-between;
+      margin: 0 var(--spacer--sm) var(--spacer--sm);
+
+      .social-network--user--info {
+        align-items: center;
+        display: flex;
+        width: 140px;
+      }
+      .social-network--user--icon {
+        border-radius: var(--border-radius--lg);
+        height: 30px;
+        margin-right: var(--spacer--sm);
+      }
+      .social-network--user--name {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+
     }
     .social-network--primary,
     .social-network--secondary {

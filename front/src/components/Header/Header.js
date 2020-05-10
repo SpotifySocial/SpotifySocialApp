@@ -23,7 +23,7 @@ export const Header = ( {setLoggedOut} ) => {
       .catch(error => {
         console.log('error', error);
       })
-  });
+  }, []);
 
   const logout = () => {
     axios

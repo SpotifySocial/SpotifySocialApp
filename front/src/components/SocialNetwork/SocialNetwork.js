@@ -14,14 +14,33 @@ export const SocialNetwork = () => {
   const [ buddies, setBuddies ] = useState([]);
   const [ buddyRequests, setBuddyRequests ] = useState([]);
   const [ users, setUsers ] = useState([]);
+  const [ isLoading, setIsLoading ] = useState(true);
   const [ activeTab, setActiveTab ] = useState('buddies');
   const [ input, setInput ] = useState('');
-  const [ filterDisplay, setFilterDisplay ] = useState(users);
+  const [ filterDisplay, setFilterDisplay ] = useState([]);
   const [ placeholder, setPlaceholder ] = useState('Search');
 
   useEffect(() => {
     axios
-      .get('http://localhost:8080/get/users', {withCredentials: true})
+      .get('http://localhost:8080/get/friends', {withCredentials: true})
+      .then(res => {
+        if (res.status === 200) {
+          let tempBuddies = res.data.map(user => {
+            return {
+              displayName: user.display_name,
+              spotifyUrl: user.spotifyUrl,
+              imageUrl: user.images[0].url,
+            };
+          });
+          setBuddies(tempBuddies);
+        }
+      })
+      .catch(error => {
+        console.log('error', error);
+      })
+
+    axios
+      .get('http://localhost:8080/get/requests', {withCredentials: true})
       .then(res => {
         if (res.status === 200) {
           let tempBuddyRequests = res.data.map(user => {
@@ -42,24 +61,6 @@ export const SocialNetwork = () => {
       .get('http://localhost:8080/get/users', {withCredentials: true})
       .then(res => {
         if (res.status === 200) {
-          let tempBuddies = res.data.map(user => {
-            return {
-              displayName: user.display_name,
-              spotifyUrl: user.spotifyUrl,
-              imageUrl: user.images[0].url,
-            };
-          });
-          setBuddies(tempBuddies);
-        }
-      })
-      .catch(error => {
-        console.log('error', error);
-      })
-
-    axios
-      .get('http://localhost:8080/get/users', {withCredentials: true})
-      .then(res => {
-        if (res.status === 200) {
           let tempUsers = res.data.map(user => {
             return {
               displayName: user.display_name,
@@ -68,12 +69,14 @@ export const SocialNetwork = () => {
             };
           });
           setUsers(tempUsers);
+          setFilterDisplay(tempUsers);
+          setIsLoading(false);
         }
       })
       .catch(error => {
         console.log('error', error);
       })
-  });
+  }, []);
 
   const changeToUsers = () => {
     setActiveTab('users');
@@ -153,31 +156,52 @@ export const SocialNetwork = () => {
           </div>
         )}
       <ul className="social-network--users">
-        {filterDisplay.map((user, index) => (
-          <div key={index}>
-            <li className="social-network--user">
-              <img
-                src={user.imageUrl}
-                alt={user.displayName + "'s photo"}
-                className="social-network--user--icon"
-              />
-            <a href={user.spotifyUrl} target="blank" rel="noopener noreferrer">{user.displayName}</a>
-              { activeTab === 'users' ? (
-                <button
-                  className="social-network--secondary social-network--spacer"
-                >
-                  Add
-                </button>
-              ) : null }
-              { activeTab === 'buddyRequests' ? (
-                <>
-                  <button className="social-network--primary ">Yay</button>
-                  <button className="social-network--secondary">Nay</button>
-               </>
-             ) : null }
-            </li>
-          </div>
-        ))}
+        { isLoading ? (
+          'Loading Your Buddies...'
+        ) : (
+          filterDisplay.map((user, index) => (
+            <div key={index}>
+              <li className="social-network--user">
+                <div className="social-network--user--info">
+                  <img
+                    src={user.imageUrl}
+                    alt={user.displayName + "'s photo"}
+                    className="social-network--user--icon"
+                  />
+                  <a
+                    href={user.spotifyUrl}
+                    target="blank"
+                    rel="noopener noreferrer"
+                    className="social-network--user--name"
+                    title={user.displayName}
+                  >
+                    {user.displayName}
+                  </a>
+                </div>
+                { activeTab === 'buddies' ? (
+                 <button
+                   className="social-network--primary social-network--spacer"
+                 >
+                   REMOVE
+                 </button>
+               ) : null }
+                { activeTab === 'users' ? (
+                  <button
+                    className="social-network--secondary social-network--spacer"
+                  >
+                    Add
+                  </button>
+                ) : null }
+                { activeTab === 'buddyRequests' ? (
+                  <>
+                    <button className="social-network--primary ">Yay</button>
+                    <button className="social-network--secondary">Nay</button>
+                 </>
+               ) : null }
+              </li>
+            </div>
+          ))
+        )}
       </ul>
       <Invite />
     </div>
