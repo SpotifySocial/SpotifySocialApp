@@ -92,6 +92,14 @@ Note: The error codes and messages of the middleware can also be returned by the
 	- 500: Internal Server Error! Failed to fetch friend data from ID
 	- 500: Database Error: Error finding friends
 
+### http://localhost:8080/get/sent
+- GET request with the credentials sent
+- Fetches the friend requests sent by the current logged in user
+- Returned HTTP codes and responses:
+	- 200: JSON array. One JSON for every friend. The keys of the JSON are the same as described in /profile
+	- 500: Internal Server Error! Failed to fetch friend data from ID
+	- 500: Database Error: Error finding friends
+
 ### http://localhost:8080/get/users
 - GET request with the credentials sent
 - Fetches the all the users 
@@ -132,6 +140,17 @@ Note: The error codes and messages of the middleware can also be returned by the
 	- 500: Internal Server Error! Failed to fetch friend data from ID
 	- 500: Database Error: Cannot find userid
 	- 500: Database Error: Could not add friend
+
+### http://localhost:8080/remove/friend
+- POST request with credentials sent
+- Content-Type: application/json
+- Body parameters: user_id: \<user id of the friend who is supposed to be removed from the friend list \>
+- Returned HTTP codes and responses:
+	- 200: Sucessfully removed friend
+	- 400: Provide a user id in query body
+	- 400: Bad Request: No friend found with such user_id
+	- 500: Database Error: Database Error: Could not remove friend
+
 
 # README for Data Science Engine:
 

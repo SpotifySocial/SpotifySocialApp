@@ -7,5 +7,6 @@ module.exports = {
 	fetchSentRequests: require('./fetch_sent_requests'),
 	fetchUsers: require('./get_users'),
 	updateRequest: require('./update_request'),
-	newRequests: require('./new_requests')
+	newRequests: require('./new_requests'),
+	removeFriend: require('./remove_friend')
 }
