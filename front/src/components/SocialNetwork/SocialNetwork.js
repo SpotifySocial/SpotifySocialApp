@@ -96,7 +96,7 @@ export const SocialNetwork = () => {
   const handleChange = event => {
     let activeUsers = activeTab === 'buddies' ? buddies : users;
     let oldList = activeUsers.map(user => {
-      return { imageUrl: user.photo, displayName: user.displayName.toLowerCase() };
+      return { imageUrl: user.imageUrl, displayName: user.displayName.toLowerCase() };
     });
     if (event !== '') {
       let newList = [];
