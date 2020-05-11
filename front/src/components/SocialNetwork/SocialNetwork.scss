@@ -48,7 +48,7 @@
       border-radius: 20px;
       display: flex;
       height: 33px;
-      margin: var(--spacer--sm) auto var(--spacer--lg) auto;
+      margin: var(--spacer--sm) auto;
       padding: 4px 8px;
       width: 246px;
     }
@@ -66,15 +66,27 @@
       text-align: center;
     }
     .social-network--user {
-      align-items: center;
       cursor: pointer;
       display: flex;
-      justify-content: flex-start;
-      margin: 0 0 var(--spacer--sm) var(--spacer--sm);
-    }
-    .social-network--user--icon {
-      height: 30px;
-      margin-right: var(--spacer--sm);
+      justify-content: space-between;
+      margin: 0 var(--spacer--sm) var(--spacer--sm);
+
+      .social-network--user--info {
+        align-items: center;
+        display: flex;
+        width: 140px;
+      }
+      .social-network--user--icon {
+        border-radius: var(--border-radius--lg);
+        height: 30px;
+        margin-right: var(--spacer--sm);
+      }
+      .social-network--user--name {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+
     }
     .social-network--primary,
     .social-network--secondary {
@@ -84,9 +96,9 @@
       font: 12px/15px "Proxima Nova", sans-serif;
       font-weight: 600;
       margin-left: 5px;
-      padding: 3px 0;
+      min-width: 65px;
+      padding: 3px 10px;
       text-transform: uppercase;
-      width: 65px;
     }
     .social-network--primary {
       background: var(--base--green--dark);

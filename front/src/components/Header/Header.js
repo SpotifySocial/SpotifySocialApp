@@ -1,11 +1,30 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios'
 
 import './Header.scss';
 import logo from "../../assets/logo-green.png"
-import profilePhoto from "../../assets/user-icon.png"
 
 export const Header = ( {setLoggedOut} ) => {
+
+  const [ profile, setProfile ] = useState({});
+
+  useEffect(() => {
+    axios
+      .get('http://localhost:8080/profile', {withCredentials: true})
+      .then(res => {
+        if (res.status === 200) {
+          setProfile({
+            displayName : res.data.display_name,
+            spotifyUrl: res.data.spotifyUrl,
+            imageUrl: res.data.images[0].url
+          });
+        }
+      })
+      .catch(error => {
+        console.log('error', error);
+      })
+  }, []);
+
   const logout = () => {
     axios
       .get('http://localhost:8080/logout', {withCredentials: true})
@@ -26,10 +45,17 @@ export const Header = ( {setLoggedOut} ) => {
       </div>
       <div className="header--profile">
         <div className="header--profile--text">
-          <p className="header--profile--name">Jen Vixen</p>
+          <a
+            className="header--profile--name"
+            href={profile.spotifyUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            {profile.displayName}
+          </a> <br />
           <button className="header--profile--logout" onClick={logout}>Log out</button>
         </div>
-        <img src={profilePhoto} className="header--profile--icon" alt="profile" />
+        <img src={profile.imageUrl} className="header--profile--icon" alt="profile" />
       </div>
     </div>
   );

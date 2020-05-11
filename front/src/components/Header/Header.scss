@@ -47,6 +47,7 @@
     padding: 0;
   }
   .header--profile--icon {
+    border-radius: var(--border-radius--lg);
     height: 30px;
     margin-left: var(--spacer--sm);
   }
