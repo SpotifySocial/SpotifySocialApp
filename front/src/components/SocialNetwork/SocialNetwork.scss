@@ -96,9 +96,9 @@
       font: 12px/15px "Proxima Nova", sans-serif;
       font-weight: 600;
       margin-left: 5px;
-      padding: 3px 0;
+      min-width: 65px;
+      padding: 3px 10px;
       text-transform: uppercase;
-      width: 65px;
     }
     .social-network--primary {
       background: var(--base--green--dark);
