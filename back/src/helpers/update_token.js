@@ -54,7 +54,7 @@ module.exports = function(req,res,next,constants,client) {
 				_id: 'Token', ids: ids, tokens: tokens
 			}],function(err, result) {
 				if(err) {
-					reject(err);
+					res.status(500).send('Database Update Error');
 					return;
 				}
 

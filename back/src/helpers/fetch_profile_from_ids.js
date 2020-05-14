@@ -1,5 +1,3 @@
-
-
 module.exports = function(ids,request,constants,access_token){
 	return new Promise(function(resolve,reject) {
 		if(typeof ids == 'object' && ids.length == 0) {

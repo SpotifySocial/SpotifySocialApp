@@ -1,4 +1,3 @@
-
 module.exports = function(req,res,constants,request,helpers,client,user_id) {
 	const request_user_id = user_id;
 	const sent_user_id = req.session.user_id;

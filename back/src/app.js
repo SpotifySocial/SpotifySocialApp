@@ -102,6 +102,7 @@ app.post('/new/request', function(req,res) {
 	const user_id = req.body.user_id;
 	if(!user_id) {
 		res.status(400).send('Provide a user id in query body');
+		return;
 	}
 
 	helpers.users(databaseClient,constants,helpers,request,req.session.access_token,true).then(users => {
@@ -125,6 +126,15 @@ app.post('/new/request', function(req,res) {
 		res.status(500).send("Database Error: Failed to fetch users");
 		return;
 	});
+});
+
+app.post('/remove/friend', function(req,res) {
+	const user_id = req.body.user_id;
+	if(!user_id) {
+		res.status(400).send('Provide a user id in query body');
+		return;
+	}
+	routes.removeFriend(req,res,constants,request,helpers,databaseClient,user_id);
 });
 
 app.post('/update/request', function(req,res) {
