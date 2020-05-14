@@ -30,6 +30,7 @@ export const SocialNetwork = () => {
               displayName: user.display_name,
               spotifyUrl: user.spotifyUrl,
               imageUrl: user.images[0].url,
+              spotifyId: user.id,
             };
           });
           setBuddies(tempBuddies);
@@ -48,6 +49,7 @@ export const SocialNetwork = () => {
               displayName: user.display_name,
               spotifyUrl: user.spotifyUrl,
               imageUrl: user.images[0].url,
+              spotifyId: user.id,
             };
           });
           setBuddyRequests(tempBuddyRequests);
@@ -66,6 +68,7 @@ export const SocialNetwork = () => {
               displayName: user.display_name,
               spotifyUrl: user.spotifyUrl,
               imageUrl: user.images[0].url,
+              spotifyId: user.id,
             };
           });
           setUsers(tempUsers);
@@ -96,7 +99,12 @@ export const SocialNetwork = () => {
   const handleChange = event => {
     let activeUsers = activeTab === 'buddies' ? buddies : users;
     let oldList = activeUsers.map(user => {
-      return { imageUrl: user.imageUrl, displayName: user.displayName.toLowerCase() };
+      return {
+        imageUrl: user.imageUrl,
+        spotifyUrl: user.spotifyUrl,
+        displayName: user.displayName.toLowerCase(),
+        spotifyId: user.spotifyId
+      };
     });
     if (event !== '') {
       let newList = [];
@@ -109,6 +117,44 @@ export const SocialNetwork = () => {
       setFilterDisplay(activeUsers);
     }
   };
+
+  const acceptRequest = (userId) => {
+    axios
+      .post('http://localhost:8080/update/request', {
+        data: {
+        user_id: userId,
+        flag: true
+        },
+        withCredentials: true
+      })
+      .then(res => {
+        if (res.status === 200) {
+          console.log("success", res);
+        }
+      })
+      .catch(error => {
+        console.log('error', error);
+      })
+  }
+
+  const rejectRequest = (userId) => {
+    axios
+      .post('http://localhost:8080/update/request', {
+        data: {
+        user_id: userId,
+        flag: false
+        },
+        withCredentials: true
+      })
+      .then(res => {
+        if (res.status === 200) {
+          console.log("success", res);
+        }
+      })
+      .catch(error => {
+        console.log('error', error);
+      })
+  }
 
   return (
     <div className="social-network">
@@ -194,8 +240,18 @@ export const SocialNetwork = () => {
                 ) : null }
                 { activeTab === 'buddyRequests' ? (
                   <>
-                    <button className="social-network--primary ">Yay</button>
-                    <button className="social-network--secondary">Nay</button>
+                    <button
+                      className="social-network--primary"
+                      onClick={() => acceptRequest(user.spotifyId)}
+                    >
+                      Yay
+                    </button>
+                    <button
+                      className="social-network--secondary"
+                      onClick={() => rejectRequest(user.spotifyId)}
+                    >
+                      Nay
+                    </button>
                  </>
                ) : null }
               </li>
