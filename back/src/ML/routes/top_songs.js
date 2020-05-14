@@ -1,7 +1,7 @@
 module.exports = async function(req,res,constants,request,helpers) {
 	const promises = req.session.access_tokens.map(access_token => helpers.fetchTopSongs(constants,request,access_token));
 	Promise.all(promises).then(async function(data) {
-		const allData = [];
+		const allData = {};
 		for(var user_index in data) {
 			var key = req.session.ids[user_index];
 			var access_token = req.session.access_tokens[user_index];
@@ -18,7 +18,7 @@ module.exports = async function(req,res,constants,request,helpers) {
 				curr_user_data.push(curr_song);
 			}
 
-			allData.push({ key: curr_user_data});
+			allData[key] = curr_user_data;
 		}
 
 		res.status(200).send(allData);
