@@ -44,23 +44,16 @@ module.exports = function(req,res,next,constants,client) {
 			tokens[index] = token;
 		}
 
-		client.collection(constants.database.token_collection).deleteOne({_id:'Token'}, function(err, result) {
+		client.collection(constants.database.token_collection).updateOne({
+			_id: 'Token'} , { $set : { ids: ids, tokens: tokens
+		}},function(err, result) {
 			if(err) {
-			res.status(500).send('Database Update Error');
-			return;
+				res.status(500).send('Database Update Error');
+				return;
 			}
 
-			client.collection(constants.database.token_collection).insertMany([{
-				_id: 'Token', ids: ids, tokens: tokens
-			}],function(err, result) {
-				if(err) {
-					res.status(500).send('Database Update Error');
-					return;
-				}
-
-				next();
-				return;
-			});
+			next();
+			return;
 		});
 	});
 }
