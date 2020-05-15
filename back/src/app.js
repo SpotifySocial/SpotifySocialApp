@@ -15,7 +15,11 @@ const MongoClient = require('mongodb').MongoClient;
 const ml = require('./ML/app.js');
 var databaseClient = '';
 
-app.use(cors());
+app.use(cors({origin: [
+  constants.appRedirectDomain
+], credentials: true}));
+
+
 app.use(bodyParser.urlencoded({
   extended: true
 }));
@@ -24,6 +28,7 @@ app.use(bodyParser.json())
 app.use('/', function(req,res,next) {
   res.header('Access-Control-Allow-Origin', constants.appRedirectDomain);
   res.header('Access-Control-Allow-Credentials','true');
+  res.header('Access-Control-Allow-Methods','GET, POST, PUT, PATCH, DELETE, HEAD, OPTIONS');
   next();
 });
 
@@ -140,6 +145,7 @@ app.post('/remove/friend', function(req,res) {
 app.post('/update/request', function(req,res) {
 	const user_id = req.body.user_id;
 	const flag = req.body.flag;
+	
 	if(!user_id) {
 		res.status(400).send('Provide a user id in query body');
 	}

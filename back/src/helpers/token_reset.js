@@ -5,7 +5,7 @@ module.exports = function(req,res,next,constants,request) {
   }
 
   const refresh_token = req.session.refresh_token || req.cookies[constants.tokenCookieKey];
-
+  
   if(!refresh_token) {
     res.status(401).send("Unauthorized! Could not find refresh token");
     return;
