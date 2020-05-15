@@ -4,5 +4,6 @@ module.exports = {
 	editToken: require('./edit_token'),
 	fetchSavedSongs: require('./fetch_saved_songs'),
 	fetchTopSongs: require('./fetch_top_songs'),
-	fetchTopArtists: require('./fetch_top_artists')
+	fetchTopArtists: require('./fetch_top_artists'),
+	fetchArtistInfo: require('./fetch_artist_info')
 }
