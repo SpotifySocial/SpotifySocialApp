@@ -30,7 +30,21 @@ function get(req,res,constants,request,client) {
 }
 
 function post(req,res,constants,request,client) {
+	if(req.params.type == 'update') {
+		if(req.params.what == 'similarity') {
+			if(!req.body.data && req.body.data.length == 0) {
+				res.send(400).send('Bad Request! Missing or empty data input');
+				return;
+			}
+			
+			routes.updateSimilarity(req,res,constants,client,helpers);
+		}		
+	}
 
+	else {
+		res.status(400).send('Bad Request! Invalid Route');
+		return;
+	}
 }
 
 
@@ -50,6 +64,16 @@ function middleware(req,res,next,constants,request,client) {
 			res.status(error.http_code).send(error.error_message);
 			return;
 		});
+	}
+
+	if(req.method == 'POST') {
+		helpers.newUserSimilarity(req,res,next,constants,request,client,helpers).then(success => {
+			next();
+			return;
+		}, err => {
+			res.status(err.http_code).send(err.error_message);
+			return;
+		});;
 	}
 }
 
