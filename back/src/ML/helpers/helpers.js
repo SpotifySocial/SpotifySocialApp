@@ -5,5 +5,7 @@ module.exports = {
 	fetchSavedSongs: require('./fetch_saved_songs'),
 	fetchTopSongs: require('./fetch_top_songs'),
 	fetchTopArtists: require('./fetch_top_artists'),
-	fetchArtistInfo: require('./fetch_artist_info')
+	fetchArtistInfo: require('./fetch_artist_info'),
+	newUserSimilarity: require('./new_user_similarity'),
+	fetchUserSimilarity: require('./fetch_similarity')
 }
