@@ -15,11 +15,13 @@ export const Anthem = () => {
     axios
       .get('http://localhost:8080/get/anthem', {withCredentials: true})
       .then(res => {
-        setAnthemUrl('https://open.spotify.com/embed/track/' + res.data.id);
-        setAnthemName(res.data.name);
-        setAnthemArtists(res.data.artists);
-        setAnthemImage(res.data.image[0].url);
-        setIsLoading(false);
+        if (res.status === 200) {
+          setAnthemUrl('https://open.spotify.com/embed/track/' + res.data.id);
+          setAnthemName(res.data.name);
+          setAnthemArtists(res.data.artists);
+          setAnthemImage(res.data.image[0].url);
+          setIsLoading(false);
+        }
       })
       .catch(error => {
         console.log('error', error);
