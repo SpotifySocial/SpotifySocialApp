@@ -15,9 +15,10 @@ export const Anthem = () => {
     axios
       .get('http://localhost:8080/get/anthem', {withCredentials: true})
       .then(res => {
-        setAnthemUrl(res.data.url);
+        setAnthemUrl('https://open.spotify.com/embed/track/' + res.data.id);
         setAnthemName(res.data.name);
         setAnthemArtists(res.data.artists);
+        setAnthemImage(res.data.image[0].url);
         setIsLoading(false);
       })
       .catch(error => {
@@ -33,11 +34,11 @@ export const Anthem = () => {
         <div className="anthem">
           <div className="anthem--container">
             <div className="anthem--banner">Today's Anthem</div>
+            <img src={anthemImage} />
             <iframe
-              className="anthem--player"
-              src="https://open.spotify.com/embed/track/4qO03RMQm88DdpTJcxlglY"
-              width="420"
-              height="509"
+              src={anthemUrl}
+              width="80"
+              height="80"
               frameBorder="0"
               allowtransparency="true"
               allow="encrypted-media">
