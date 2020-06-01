@@ -31,17 +31,20 @@ export const Anthem = () => {
         <div className="anthem--loading">Loading Your Anthem...</div>
       ) : (
         <div className="anthem">
-          <iframe
-            className="anthem--player"
-            src="https://open.spotify.com/embed/track/4qO03RMQm88DdpTJcxlglY"
-            width="420"
-            height="509"
-            frameBorder="0"
-            allowtransparency="true"
-            allow="encrypted-media">
-            title="Spotify player"
-          </iframe>
-        </div>
+          <div className="anthem--container">
+            <div className="anthem--banner">Today's Anthem</div>
+            <iframe
+              className="anthem--player"
+              src="https://open.spotify.com/embed/track/4qO03RMQm88DdpTJcxlglY"
+              width="420"
+              height="509"
+              frameBorder="0"
+              allowtransparency="true"
+              allow="encrypted-media">
+              title="Spotify player"
+            </iframe>
+          </div>
+          </div>
       )}
     </div>
   );
