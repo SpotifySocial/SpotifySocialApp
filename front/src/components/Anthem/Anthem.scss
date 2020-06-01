@@ -1,0 +1,15 @@
+@import "../../vars.scss";
+
+.anthem {
+  background: var(--base--grey--dark);
+  color: var(--base--white);
+  height: 200px;
+  text-align: center;
+  .anthem--song--container {
+    align-items: center;
+    background: var(--base--grey--dark);
+    display: flex;
+    height: calc(100vh - 200px);
+    justify-content: center;
+  }
+}

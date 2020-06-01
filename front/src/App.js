@@ -6,6 +6,7 @@ import Copyright from './components/Copyright/Copyright'
 import Header from './components/Header/Header'
 import MusicBuddies from './components/MusicBuddies/MusicBuddies'
 import SocialNetwork from './components/SocialNetwork/SocialNetwork'
+import Anthem from './components/Anthem/Anthem'
 
 export const App = () => {
 
@@ -31,6 +32,7 @@ export const App = () => {
           <div className="main-navigation">
             <Header setLoggedOut={logOut} />
             <MusicBuddies />
+            <Anthem />
           </div>
           <div className="sidebar">
             <SocialNetwork />
