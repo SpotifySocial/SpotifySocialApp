@@ -8,5 +8,7 @@ module.exports = {
 	fetchUsers: require('./get_users'),
 	updateRequest: require('./update_request'),
 	newRequests: require('./new_requests'),
-	removeFriend: require('./remove_friend')
+	removeFriend: require('./remove_friend'),
+	fetchSimilarity: require('./fetch_similarity'),
+	fetchAnthem: require('./fetch_anthem')
 }

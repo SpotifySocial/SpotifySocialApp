@@ -92,6 +92,16 @@ app.get('/get/:what', function(req,res) {
 		return;
 	}
 
+	else if(req.params.what == 'similarity') {
+		routes.fetchSimilarity(req,res,constants,request,helpers,databaseClient);
+		return;
+	}
+
+	else if(req.params.what == 'anthem') {
+		routes.fetchAnthem(req,res,constants,request,helpers,databaseClient);
+		return;
+	}
+
 	else {
 		res.status(404).send('Invalid route');
 		return;
