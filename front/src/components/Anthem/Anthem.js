@@ -6,6 +6,9 @@ import './Anthem.scss';
 export const Anthem = () => {
 
   const [ anthemUrl, setAnthemUrl] = useState('');
+  const [ anthemName, setAnthemName] = useState('');
+  const [ anthemArtists, setAnthemArtists] = useState([]);
+  const [ anthemImage, setAnthemImage] = useState('');
   const [ isLoading, setIsLoading ] = useState(true);
 
   useEffect(() => {
@@ -13,12 +16,14 @@ export const Anthem = () => {
       .get('http://localhost:8080/get/anthem', {withCredentials: true})
       .then(res => {
         setAnthemUrl(res.data.url);
+        setAnthemName(res.data.name);
+        setAnthemArtists(res.data.artists);
         setIsLoading(false);
       })
       .catch(error => {
         console.log('error', error);
       })
-  }, [anthemUrl])
+  }, [])
 
   return (
     <div>
