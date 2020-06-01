@@ -9,6 +9,7 @@ module.exports = {
 	spotifyTopArtistUrl: 'https://api.spotify.com/v1/me/top/artists',
 	spotifyUserUrl: 'https://api.spotify.com/v1/users/id',
 	spotifyArtistInfoUrl: 'https://api.spotify.com/v1/artists/',
+	spotifyGetTrack: 'https://api.spotify.com/v1/tracks/',
 	backendRedirectDomain: 'http://localhost:'.concat(process.env.PORT),
 	backendRedirectRoute: '/',
 	appRedirectDomain: 'http://localhost:3000',

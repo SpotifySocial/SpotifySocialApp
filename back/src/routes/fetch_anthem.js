@@ -10,11 +10,28 @@ module.exports = function(req,res,constants,request,helpers,client) {
 		const returVal = {
 			artists: song.artists.map(artist => artist.name),
 			url: song.external_urls.spotify,
-			name: song.name
+			name: song.name,
+			id: song.id
 		};
 
-		res.status(200).send(returVal);
+		const getTrack = constants.spotifyGetTrack + returVal.id;
+		const getTrackOption = {
+			url: getTrack,
+			headers : { 'Authorization': 'Bearer ' + req.session.access_token },
+			json: true
+		}
+
+		request.get(getTrackOption).then(track => {
+			returVal['image'] = track.album.images;
+			res.status(200).send(returVal);
+			return;
+		}).catch(err2 => {
+			res.status(400).send("Error in getting song data");
+			return;
+		});
+		
 	}).catch(err => {
 		res.send(400).send("Error in getting song data");
-	})
+		return;
+	});
 }
