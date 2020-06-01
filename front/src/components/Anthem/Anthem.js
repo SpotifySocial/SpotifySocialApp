@@ -21,11 +21,11 @@ export const Anthem = () => {
   }, [anthemUrl])
 
   return (
-    <div className="anthem">
+    <div>
       { isLoading ? (
-        'Loading Your Anthem...'
+        <div className="anthem--loading">Loading Your Anthem...</div>
       ) : (
-        <div className="anthem--song--container">
+        <div className="anthem">
           <iframe
             className="anthem--player"
             src="https://open.spotify.com/embed/track/4qO03RMQm88DdpTJcxlglY"
