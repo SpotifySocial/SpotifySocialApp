@@ -1,0 +1,26 @@
+{
+  "files": {
+    "main.css": "/SpotifySocialApp/static/css/main.5487c9ff.chunk.css",
+    "main.js": "/SpotifySocialApp/static/js/main.d03ca169.chunk.js",
+    "main.js.map": "/SpotifySocialApp/static/js/main.d03ca169.chunk.js.map",
+    "runtime-main.js": "/SpotifySocialApp/static/js/runtime-main.b2d63eb9.js",
+    "runtime-main.js.map": "/SpotifySocialApp/static/js/runtime-main.b2d63eb9.js.map",
+    "static/js/2.9619a686.chunk.js": "/SpotifySocialApp/static/js/2.9619a686.chunk.js",
+    "static/js/2.9619a686.chunk.js.map": "/SpotifySocialApp/static/js/2.9619a686.chunk.js.map",
+    "index.html": "/SpotifySocialApp/index.html",
+    "precache-manifest.0f4a797f9d2c71a81ca5b6f2ba11cc29.js": "/SpotifySocialApp/precache-manifest.0f4a797f9d2c71a81ca5b6f2ba11cc29.js",
+    "service-worker.js": "/SpotifySocialApp/service-worker.js",
+    "static/css/main.5487c9ff.chunk.css.map": "/SpotifySocialApp/static/css/main.5487c9ff.chunk.css.map",
+    "static/js/2.9619a686.chunk.js.LICENSE.txt": "/SpotifySocialApp/static/js/2.9619a686.chunk.js.LICENSE.txt",
+    "static/media/add-a-buddy.png": "/SpotifySocialApp/static/media/add-a-buddy.c3ad7d00.png",
+    "static/media/buddies.png": "/SpotifySocialApp/static/media/buddies.56c7c30a.png",
+    "static/media/buddy-requests.png": "/SpotifySocialApp/static/media/buddy-requests.cdd28c5e.png",
+    "static/media/logo-green.png": "/SpotifySocialApp/static/media/logo-green.7a34cf42.png"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.b2d63eb9.js",
+    "static/js/2.9619a686.chunk.js",
+    "static/css/main.5487c9ff.chunk.css",
+    "static/js/main.d03ca169.chunk.js"
+  ]
+}
