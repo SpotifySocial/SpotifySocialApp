@@ -35,17 +35,22 @@ export const Anthem = () => {
       ) : (
         <div className="anthem">
           <div className="anthem--container">
-            <div className="anthem--banner">Today's Anthem</div>
-            <img src={anthemImage} />
-            <iframe
-              src={anthemUrl}
-              width="80"
-              height="80"
-              frameBorder="0"
-              allowtransparency="true"
-              allow="encrypted-media">
-              title="Spotify player"
-            </iframe>
+            <div>
+              <p className="anthem--banner">Today's Anthem</p>
+              <p className="anthem--name">{anthemName}</p>
+              <p className="anthem--artists">{anthemArtists}</p>
+                <iframe
+                  className="anthem--play"
+                  src={anthemUrl}
+                  width="80"
+                  height="80"
+                  frameBorder="0"
+                  allowtransparency="true"
+                  allow="encrypted-media">
+                  title="Spotify player"
+                </iframe>
+            </div>
+            <img className="anthem--image" alt="anthem cover" src={anthemImage} />
           </div>
           </div>
       )}

@@ -7,6 +7,7 @@ import logo from "../../assets/logo-green.png"
 export const Header = ( {setLoggedOut} ) => {
 
   const [ profile, setProfile ] = useState({});
+  const [ isLoading, setIsLoading ] = useState(true);
 
   useEffect(() => {
     axios
@@ -18,6 +19,7 @@ export const Header = ( {setLoggedOut} ) => {
             spotifyUrl: res.data.spotifyUrl,
             imageUrl: res.data.images[0].url
           });
+          setIsLoading(false);
         }
       })
       .catch(error => {
@@ -43,20 +45,24 @@ export const Header = ( {setLoggedOut} ) => {
         <img src={logo} className="header--logo--icon" alt="Spotify Social logo" />
         <p className="header--logo--text">Spotify Social</p>
       </div>
-      <div className="header--profile">
-        <div className="header--profile--text">
-          <a
-            className="header--profile--name"
-            href={profile.spotifyUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            {profile.displayName}
-          </a> <br />
-          <button className="header--profile--logout" onClick={logout}>Log out</button>
-        </div>
-        <img src={profile.imageUrl} className="header--profile--icon" alt="profile" />
-      </div>
+        { isLoading ? (
+          'Fetching your profile info real quick...'
+        ) : (
+          <div className="header--profile">
+            <div className="header--profile--text">
+              <a
+                className="header--profile--name"
+                href={profile.spotifyUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {profile.displayName}
+              </a> <br />
+              <button className="header--profile--logout" onClick={logout}>Log out</button>
+            </div>
+            <img src={profile.imageUrl} className="header--profile--icon" alt="profile" />
+          </div>
+        )}
     </div>
   );
 }
