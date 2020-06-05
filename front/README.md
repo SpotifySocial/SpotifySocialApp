@@ -1,6 +1,6 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-### Add a `.env` file under `/front` with `REACT_APP_MAILCHIMP_URL={react_app_mailchimp_url}`
+* Add a `.env` file under `/front` with `REACT_APP_MAILCHIMP_URL={react_app_mailchimp_url}`
 
 ## Available Scripts
 
