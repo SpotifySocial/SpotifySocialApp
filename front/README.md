@@ -35,7 +35,7 @@ See the section about [deployment](https://facebook.github.io/create-react-app/d
 
 ### `firebase deploy`
 
-Deploys the app using Firebase Hosting available at https://spotify-social-front.web.app.
+Deploys the app using Firebase Hosting available at https://spotifysocial.web.app.
 
 ### `npm run eject`
 
