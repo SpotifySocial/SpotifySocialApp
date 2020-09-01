@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import clsx from 'clsx';
 
 import './App.scss';
 import PreLogin from './components/PreLogin/PreLogin'
@@ -26,7 +27,7 @@ export const App = () => {
   }
 
   return (
-    <>
+    <div className={clsx(!loggedIn && "pre-login-main")}>
       { loggedIn ? (
         <>
           <div className="main-navigation">
@@ -44,7 +45,7 @@ export const App = () => {
         </>
       )}
       <Copyright loggedIn={loggedIn} />
-    </>
+    </div>
   );
 }
 

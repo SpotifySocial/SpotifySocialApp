@@ -2,15 +2,15 @@
 
 .pre-login {
   align-items: center;
-  background: var(--base--black);
   color: var(--base--white);
   display: flex;
   flex-direction: column;
   font-size: var(--text-sm);
   height: calc(100vh - 120px);
-  text-align: center;
   justify-content: center;
-  padding: var(--spacer--sm);
+  position: relative;
+  text-align: center;
+  z-index: 10;
 
   .pre-login--logo {
     align-items: center;
@@ -38,7 +38,6 @@
     padding-bottom: var(--spacer--lg);
   }
   .cta--link {
-    background: var(--base--black);
     border: var(--border--thick) solid var(--base--white);
     border-radius: var(--border-radius--lg);
     color: var(--base--white);

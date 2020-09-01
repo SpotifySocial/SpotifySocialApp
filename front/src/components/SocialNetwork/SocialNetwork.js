@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios'
-import clsx from "clsx";
+import clsx from 'clsx';
 
 import './SocialNetwork.scss';
 import buddiesIcon from "../../assets/buddies.png"

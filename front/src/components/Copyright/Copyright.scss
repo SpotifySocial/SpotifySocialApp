@@ -2,7 +2,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap");
 
 .copyright {
-  background: var(--base--black);
   color: var(--base--white);
   display: flex;
   font: var(--text--xs)/15px "Roboto", sans-serif;
@@ -10,6 +9,8 @@
   height: 28px;
   letter-spacing: 0.04em;
   padding: var(--spacer--lg);
+  position: relative;
+  z-index: 10;
 }
 .copyright--logged-in {
   background: var(--base--grey--dark);
