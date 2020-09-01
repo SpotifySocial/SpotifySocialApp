@@ -33,6 +33,7 @@ export const SocialNetwork = () => {
             };
           });
           setBuddies(tempBuddies);
+          setFilterDisplay(tempBuddies);
         }
       })
       .catch(error => {
@@ -69,7 +70,6 @@ export const SocialNetwork = () => {
             };
           });
           setUsers(tempUsers);
-          setFilterDisplay(tempUsers);
           setIsLoading(false);
         }
       })
