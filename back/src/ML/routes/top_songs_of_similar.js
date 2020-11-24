@@ -27,7 +27,7 @@ module.exports = function(req,res,constants,client,helpers,request) {
 			final_ids = []
 			final_data = []
 			final_ids.push(curr_id)
-			final_ids.push(songs)
+			final_data.push(songs)
 			promises = []
 			const db_ids = users.map(user => user._id);
 			// Currently sending back music of any 5 ids, this will be changed after we have similarity criterion
@@ -40,14 +40,40 @@ module.exports = function(req,res,constants,client,helpers,request) {
 				promises.push(helpers.fetchTopSongs(constants,request,all_tokens[found]))
 			}
 			Promise.all(promises).then(song_data => {
-				for(data of song_data) {
-					final_data.push(data)
+				song_ids = []
+				final_final_ids = []
+				for(i in final_ids) {
+					var curr_song_ids = []
+					var curr_id_songs = song_data[i]
+					if(curr_id_songs) {
+						curr_id_songs = curr_id_songs.items
+						for(j in curr_id_songs) {
+							curr_song_ids.push(curr_id_songs[j].id)
+						}
+						song_ids.push(curr_song_ids)
+						final_final_ids.push(final_ids[i])
+					}				
 				}
-				res.status(200).send({
-					ids: final_ids,
-					data: final_data
+				promises = []
+				for (i in final_final_ids) {
+					var found = getMatchId(all_ids,final_final_ids[i])
+					if(found == -1) {
+						res.status(400).send('Could not get find user');
+						return;
+					}
+					promises.push(helpers.fetchSongAnalysis(constants,request,all_tokens[found], song_ids[i]))
+				}
+
+				Promise.all(promises).then(audio_data => {
+					res.status(200).send({
+						ids: final_final_ids,
+						data: audio_data
+					})
+					return
+				},reject => {
+					res.status(400).send('Could not get song analysis for friends');
+					return;
 				});
-				return;
 			},reject => {
 				res.status(400).send('Could not get saved songs for all users');
 				return;

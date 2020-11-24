@@ -7,5 +7,6 @@ module.exports = {
 	fetchTopArtists: require('./fetch_top_artists'),
 	fetchArtistInfo: require('./fetch_artist_info'),
 	newUserSimilarity: require('./new_user_similarity'),
-	fetchUserSimilarity: require('./fetch_similarity')
+	fetchUserSimilarity: require('./fetch_similarity'),
+	fetchSongAnalysis: require('./fetch_song_analysis')
 }
