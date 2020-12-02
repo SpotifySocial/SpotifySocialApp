@@ -1,5 +1,4 @@
 module.exports = function(req,res,constants,request,helpers,client,user_id) {
-	const curr_user_id = req.session.user_id;
 	const friend_user_id = user_id;
 	helpers.friends_data(req,res,constants,request,client,helpers).then(friend_data => {
 		let friends = [];
