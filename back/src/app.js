@@ -24,7 +24,8 @@ app.use(bodyParser.json())
 app.use('/', function(req,res,next) {
   res.header('Access-Control-Allow-Origin', constants.appRedirectDomain);
   res.header('Access-Control-Allow-Credentials','true');
-  next();
+  res.header('Access-Control-Allow-Methods', 'PUT, POST, GET, DELETE, PATCH, OPTIONS');
+	next();
 });
 
 app.use(cookieParser());
@@ -72,39 +73,32 @@ app.get('/profile', function(req, res) {
 });
 
 app.get('/get/:what', function(req,res) {
-	if(req.params.what == 'friends') {
+	if(req.params.what === 'friends') {
 		routes.fetchFriends(req,res,constants,request,helpers,databaseClient);
-		return;
 	}
 
-	else if(req.params.what == 'requests') {
+	else if(req.params.what === 'requests') {
 		routes.fetchRequests(req,res,constants,request,helpers,databaseClient);
-		return;
 	}
 
-	else if(req.params.what == 'sent') {
+	else if(req.params.what === 'sent') {
 		routes.fetchSentRequests(req,res,constants,request,helpers,databaseClient);
-		return;
 	}
 
-	else if(req.params.what == 'users') {
+	else if(req.params.what === 'users') {
 		routes.fetchUsers(req,res,constants,request,helpers,databaseClient);
-		return;
 	}
 
-	else if(req.params.what == 'similarity') {
+	else if(req.params.what === 'similarity') {
 		routes.fetchSimilarity(req,res,constants,request,helpers,databaseClient);
-		return;
 	}
 
-	else if(req.params.what == 'anthem') {
+	else if(req.params.what === 'anthem') {
 		routes.fetchAnthem(req,res,constants,request,helpers,databaseClient);
-		return;
 	}
 
 	else {
 		res.status(404).send('Invalid route');
-		return;
 	}
 });
 
@@ -116,9 +110,9 @@ app.post('/new/request', function(req,res) {
 	}
 
 	helpers.users(databaseClient,constants,helpers,request,req.session.access_token,true).then(users => {
-		var found = false;
-		for(var id of users) {
-			if(id == user_id){
+		let found = false;
+		for(const id of users) {
+			if(id === user_id){
 				found = true;
 				break;
 			}
@@ -130,11 +124,8 @@ app.post('/new/request', function(req,res) {
 		}
 
 		routes.newRequests(req,res,constants,request,helpers,databaseClient,user_id);
-		return;
-
 	}, reject => {
 		res.status(500).send("Database Error: Failed to fetch users");
-		return;
 	});
 });
 
@@ -149,7 +140,7 @@ app.post('/remove/friend', function(req,res) {
 
 app.post('/update/request', function(req,res) {
 	const user_id = req.body.user_id;
-	const flag = req.body.flag;
+	let flag = req.body.flag;
 	if(!user_id) {
 		res.status(400).send('Provide a user id in query body');
 	}
@@ -158,20 +149,20 @@ app.post('/update/request', function(req,res) {
 		res.status(400).send('Provide a flag in query body');
 	}
 
-	if (flag == 'true' || flag == 'True')
+	if (flag === 'true' || flag === 'True')
 		flag = true;
-	if(flag == 'false' || flag == 'False')
+	if(flag === 'false' || flag === 'False')
 		flag = false;
 
-	if(flag != true && flag != false) {
-		res.status(400).send('Provide a valid flag');		
+	if(flag !== true && flag !== false) {
+		res.status(400).send('Provide a valid flag');
 		return;
 	}
 
 	helpers.users(databaseClient,constants,helpers,request,req.session.access_token,true).then(users => {
-		var found = false;
-		for(var id of users) {
-			if(id == user_id){
+		let found = false;
+		for(const id of users) {
+			if(id === user_id){
 				found = true;
 				break;
 			}
@@ -183,11 +174,9 @@ app.post('/update/request', function(req,res) {
 		}
 
 		routes.updateRequest(req,res,constants,request,helpers,databaseClient,user_id,flag);
-		return;
 
 	}, reject => {
 		res.status(500).send("Database Error: Failed to fetch users");
-		return;
 	});
 });
 
@@ -214,9 +203,7 @@ const server = app.listen(process.env.PORT || 8080, () => {
 	database.connect(MongoClient,uri,constants).then(client => {
 		databaseClient = client;
 		console.log(`Listening on port ${process.env.PORT || 8080}`);
-		return;
 	}, reject => {
 		server.close();
-		return;
 	});
 });

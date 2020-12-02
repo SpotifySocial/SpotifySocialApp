@@ -27,6 +27,7 @@ export const SocialNetwork = () => {
         if (res.status === 200) {
           let tempBuddies = res.data.map(user => {
             return {
+              id: user.id,
               displayName: user.display_name,
               spotifyUrl: user.spotifyUrl,
               imageUrl: user.images[0].url,
@@ -110,6 +111,22 @@ export const SocialNetwork = () => {
     }
   };
 
+  const removeFriend = (user) => {
+    console.log('test', user.id);
+    axios
+        .post('http://localhost:8080/remove/friend', {
+          user_id: user.id,
+        }, {withCredentials: true})
+        .then(res => {
+          if (res.status === 200) {
+            console.log('result', res);
+          }
+        })
+        .catch(error => {
+          console.log('error', error);
+        })
+  }
+
   return (
     <div className="social-network">
       <button
@@ -180,6 +197,7 @@ export const SocialNetwork = () => {
                 </div>
                 { activeTab === 'buddies' ? (
                  <button
+                     onClick={() => removeFriend(user)}
                    className="social-network--primary social-network--spacer"
                  >
                    REMOVE

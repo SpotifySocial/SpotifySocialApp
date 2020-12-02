@@ -5,7 +5,6 @@ module.exports = function(req,res,constants,request) {
 
   if (state === null || stateSecret !== process.env.AUTH_COOKIE_VAL) {
     res.redirect(401,constants.appRedirectDomain+constants.appErrorRedirectRoute);
-    return;
   } else {
     res.clearCookie(constants.stateCookie);
     const authOptions = {
@@ -22,11 +21,11 @@ module.exports = function(req,res,constants,request) {
     };
 
     request.post(authOptions, function(error, response, body) {
-	  if(error || response.statusCode != 200){
+	  if(error || response.statusCode !== 200){
 	  	res.redirect(401,constants.appRedirectDomain+constants.appErrorRedirectRoute);
 	  	return;
 	  }
-     
+
     	req.session.access_token = body.access_token;
     	req.session.refresh_token = body.refresh_token;
       req.session.expiry = new Date()/1000 + body.expires_in;
