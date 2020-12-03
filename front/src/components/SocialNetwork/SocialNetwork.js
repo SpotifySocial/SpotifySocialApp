@@ -25,7 +25,7 @@ export const SocialNetwork = () => {
       .get('http://localhost:8080/get/friends', {withCredentials: true})
       .then(res => {
         if (res.status === 200) {
-          let tempBuddies = res.data.map(user => {
+          const tempBuddies = res.data.map(user => {
             return {
               displayName: user.display_name,
               spotifyUrl: user.spotifyUrl,
@@ -45,7 +45,7 @@ export const SocialNetwork = () => {
       .get('http://localhost:8080/get/requests', {withCredentials: true})
       .then(res => {
         if (res.status === 200) {
-          let tempBuddyRequests = res.data.map(user => {
+          const tempBuddyRequests = res.data.map(user => {
             return {
               displayName: user.display_name,
               spotifyUrl: user.spotifyUrl,
@@ -64,7 +64,7 @@ export const SocialNetwork = () => {
       .get('http://localhost:8080/get/users', {withCredentials: true})
       .then(res => {
         if (res.status === 200) {
-          let tempUsers = res.data.map(user => {
+          const tempUsers = res.data.map(user => {
             return {
               displayName: user.display_name,
               spotifyUrl: user.spotifyUrl,
@@ -81,7 +81,7 @@ export const SocialNetwork = () => {
       })
   }, []);
 
-  const changeToUsers = () => {
+    const changeToUsers = () => {
     setActiveTab('users');
     setFilterDisplay(users);
     setPlaceholder('Find Buddies');
@@ -132,31 +132,17 @@ export const SocialNetwork = () => {
         })
   }
 
-  const acceptRequest = (userId) => {
+  const handleRequest = (userId, flag) => {
     axios
         .post('http://localhost:8080/update/request', {
             user_id: userId,
-            flag: true
+            flag: flag
         }, { withCredentials: true})
         .then(res => {
           if (res.status === 200) {
-            console.log("success", res);
-          }
-        })
-        .catch(error => {
-          console.log('error', error);
-        })
-  }
-
-  const rejectRequest = (userId) => {
-    axios
-        .post('http://localhost:8080/update/request', {
-          user_id: userId,
-          flag: false
-        }, {withCredentials: true})
-        .then(res => {
-          if (res.status === 200) {
-            console.log("success", res);
+            const tempBuddyRequests = buddyRequests.filter(user => user.spotifyId !== userId);
+            setBuddyRequests(tempBuddyRequests);
+            setFilterDisplay(tempBuddyRequests);
           }
         })
         .catch(error => {
@@ -252,13 +238,13 @@ export const SocialNetwork = () => {
                   <>
                     <button
                         className="social-network--primary"
-                        onClick={() => acceptRequest(user.spotifyId)}
+                        onClick={() => handleRequest(user.spotifyId, true)}
                     >
                       Yay
                     </button>
                     <button
                         className="social-network--secondary"
-                        onClick={() => rejectRequest(user.spotifyId)}
+                        onClick={() => handleRequest(user.spotifyId, false)}
                     >
                       Nay
                     </button>
