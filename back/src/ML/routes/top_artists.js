@@ -4,7 +4,12 @@ module.exports = function(req,res,constants,request,helpers) {
 		const allData = []
 		for(var i in data) {
 			var key = req.session.ids[i]
-			allData.push({ key: data[i]});
+			var genres = data[i].items.map(artist_data => artist_data['genres'])
+			console.log(key)
+			console.log(genres)
+			var user_data = {}
+			user_data[key] = genres
+			allData.push(user_data);
 		}
 		res.status(200).send(allData);
 		return;

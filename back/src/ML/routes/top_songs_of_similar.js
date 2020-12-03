@@ -15,7 +15,7 @@ module.exports = function(req,res,constants,client,helpers,request) {
 		curr_id = req.body.user_id
 		all_tokens = req.session.access_tokens
 		all_ids = req.session.ids
-		
+		console.log(all_ids)
 		var found = getMatchId(all_ids,curr_id)
 		if(found == -1) {
 			res.status(400).send('Could not get find user');
