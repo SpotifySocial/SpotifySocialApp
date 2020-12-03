@@ -145,15 +145,9 @@ app.post('/update/request', function(req,res) {
 		res.status(400).send('Provide a user id in query body');
 	}
 
-	if(!flag) {
+	if(flag == null) {
 		res.status(400).send('Provide a flag in query body');
 	}
-
-	if (flag === 'true' || flag === 'True')
-		flag = true;
-	if(flag === 'false' || flag === 'False')
-		flag = false;
-
 	if(flag !== true && flag !== false) {
 		res.status(400).send('Provide a valid flag');
 		return;

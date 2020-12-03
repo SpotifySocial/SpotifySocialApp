@@ -27,10 +27,10 @@ export const SocialNetwork = () => {
         if (res.status === 200) {
           let tempBuddies = res.data.map(user => {
             return {
-              id: user.id,
               displayName: user.display_name,
               spotifyUrl: user.spotifyUrl,
               imageUrl: user.images[0].url,
+              spotifyId: user.id
             };
           });
           setBuddies(tempBuddies);
@@ -50,6 +50,7 @@ export const SocialNetwork = () => {
               displayName: user.display_name,
               spotifyUrl: user.spotifyUrl,
               imageUrl: user.images[0].url,
+              spotifyId: user.id
             };
           });
           setBuddyRequests(tempBuddyRequests);
@@ -68,6 +69,7 @@ export const SocialNetwork = () => {
               displayName: user.display_name,
               spotifyUrl: user.spotifyUrl,
               imageUrl: user.images[0].url,
+              spotifyId: user.id
             };
           });
           setUsers(tempUsers);
@@ -97,7 +99,11 @@ export const SocialNetwork = () => {
   const handleChange = event => {
     let activeUsers = activeTab === 'buddies' ? buddies : users;
     let oldList = activeUsers.map(user => {
-      return { imageUrl: user.imageUrl, displayName: user.displayName.toLowerCase() };
+      return {
+        imageUrl: user.imageUrl,
+        displayName: user.displayName.toLowerCase(),
+        spotifyId: user.id
+      };
     });
     if (event !== '') {
       let newList = [];
@@ -111,11 +117,10 @@ export const SocialNetwork = () => {
     }
   };
 
-  const removeFriend = (user) => {
-    console.log('test', user.id);
+  const removeFriend = (userId) => {
     axios
         .post('http://localhost:8080/remove/friend', {
-          user_id: user.id,
+          user_id: userId,
         }, {withCredentials: true})
         .then(res => {
           if (res.status === 200) {
@@ -126,6 +131,39 @@ export const SocialNetwork = () => {
           console.log('error', error);
         })
   }
+
+  const acceptRequest = (userId) => {
+    axios
+        .post('http://localhost:8080/update/request', {
+            user_id: userId,
+            flag: true
+        }, { withCredentials: true})
+        .then(res => {
+          if (res.status === 200) {
+            console.log("success", res);
+          }
+        })
+        .catch(error => {
+          console.log('error', error);
+        })
+  }
+
+  const rejectRequest = (userId) => {
+    axios
+        .post('http://localhost:8080/update/request', {
+          user_id: userId,
+          flag: false
+        }, {withCredentials: true})
+        .then(res => {
+          if (res.status === 200) {
+            console.log("success", res);
+          }
+        })
+        .catch(error => {
+          console.log('error', error);
+        })
+  }
+
 
   return (
     <div className="social-network">
@@ -197,7 +235,7 @@ export const SocialNetwork = () => {
                 </div>
                 { activeTab === 'buddies' ? (
                  <button
-                     onClick={() => removeFriend(user)}
+                     onClick={() => removeFriend(user.spotifyId)}
                    className="social-network--primary social-network--spacer"
                  >
                    REMOVE
@@ -212,8 +250,18 @@ export const SocialNetwork = () => {
                 ) : null }
                 { activeTab === 'buddyRequests' ? (
                   <>
-                    <button className="social-network--primary ">Yay</button>
-                    <button className="social-network--secondary">Nay</button>
+                    <button
+                        className="social-network--primary"
+                        onClick={() => acceptRequest(user.spotifyId)}
+                    >
+                      Yay
+                    </button>
+                    <button
+                        className="social-network--secondary"
+                        onClick={() => rejectRequest(user.spotifyId)}
+                    >
+                      Nay
+                    </button>
                  </>
                ) : null }
               </li>
