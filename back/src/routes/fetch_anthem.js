@@ -1,4 +1,4 @@
-module.exports = function(req,res,constants,request,helpers,client) {
+module.exports = function(req,res,constants,request) {
 	const option = {
 		url: constants.spotifyTopSongUrl,
 		headers : { 'Authorization': 'Bearer ' + req.session.access_token },
@@ -29,7 +29,7 @@ module.exports = function(req,res,constants,request,helpers,client) {
 			res.status(400).send("Error in getting song data");
 			return;
 		});
-		
+
 	}).catch(err => {
 		res.send(400).send("Error in getting song data");
 		return;

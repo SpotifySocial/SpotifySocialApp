@@ -1,4 +1,4 @@
-module.exports = function(req,res,constants,request,helpers,client) {  
+module.exports = function(req,res,constants,request,helpers,client) {
       const curr_id = req.session.user_id;
       const curr_name = req.session['display_name'];
       const spotifyUrl = req.session['spotify'];
@@ -12,12 +12,12 @@ module.exports = function(req,res,constants,request,helpers,client) {
 
       helpers.users(client,constants,helpers,request,req.session.access_token).then(users => {
             const ids = [];
-            for (var user of users)
+            for (const user of users)
                   ids.push(user.id);
 
-      	var found = false;
-      	for ( var id of ids) {
-      		if(id == curr_id) {
+		  let found = false;
+		  for (const id of ids) {
+      		if(id === curr_id) {
       			found = true;
       			break;
       		}
@@ -33,11 +33,9 @@ module.exports = function(req,res,constants,request,helpers,client) {
       		res.status(200).send(returnVal);
       	}, reason => {
       		res.status(500).send('Database Update error');
-      		return;
       	});
 
       }, reason => {
       		res.status(500).send('Database Update error');
-      		return;
       });
 }

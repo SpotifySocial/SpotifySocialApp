@@ -5,6 +5,5 @@ module.exports = function(req,res,constants,request,helpers,client) {
 			return;
 		}
 		res.send(docs[0]);
-		return;
 	});
 }

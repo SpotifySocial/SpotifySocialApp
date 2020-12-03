@@ -3,7 +3,7 @@ module.exports = function(req,res,constants,request,helpers,client,user_id) {
 	const sent_user_id = req.session.user_id;
 	helpers.friends_data(req,res,constants,request,client,helpers,request_user_id).then(friend_data => {
 		const requests = []
-		for (var data of friend_data.requests) {
+		for (const data of friend_data.requests) {
 			requests.push(data.id);
 		}
 		requests.push(sent_user_id);
@@ -17,7 +17,7 @@ module.exports = function(req,res,constants,request,helpers,client,user_id) {
 
 			helpers.friends_data(req,res,constants,request,client,helpers,sent_user_id).then(friend_data_2 => {
 				const sent = []
-				for (var data of friend_data_2.sent) {
+				for (const data of friend_data_2.sent) {
 					sent.push(data.id);
 				}
 				sent.push(request_user_id);
@@ -31,11 +31,9 @@ module.exports = function(req,res,constants,request,helpers,client,user_id) {
 					}
 
 					res.status(200).send('Successfully Added friend request');
-					return;
 				});
 			}, error => {
 				res.status(error.http_code).send(error.error_message);
-				return;
 			});
 		});
 	});

@@ -25,11 +25,12 @@ export const SocialNetwork = () => {
       .get('http://localhost:8080/get/friends', {withCredentials: true})
       .then(res => {
         if (res.status === 200) {
-          let tempBuddies = res.data.map(user => {
+          const tempBuddies = res.data.map(user => {
             return {
               displayName: user.display_name,
               spotifyUrl: user.spotifyUrl,
               imageUrl: user.images[0].url,
+              spotifyId: user.id
             };
           });
           setBuddies(tempBuddies);
@@ -44,11 +45,12 @@ export const SocialNetwork = () => {
       .get('http://localhost:8080/get/requests', {withCredentials: true})
       .then(res => {
         if (res.status === 200) {
-          let tempBuddyRequests = res.data.map(user => {
+          const tempBuddyRequests = res.data.map(user => {
             return {
               displayName: user.display_name,
               spotifyUrl: user.spotifyUrl,
               imageUrl: user.images[0].url,
+              spotifyId: user.id
             };
           });
           setBuddyRequests(tempBuddyRequests);
@@ -62,11 +64,12 @@ export const SocialNetwork = () => {
       .get('http://localhost:8080/get/users', {withCredentials: true})
       .then(res => {
         if (res.status === 200) {
-          let tempUsers = res.data.map(user => {
+          const tempUsers = res.data.map(user => {
             return {
               displayName: user.display_name,
               spotifyUrl: user.spotifyUrl,
               imageUrl: user.images[0].url,
+              spotifyId: user.id
             };
           });
           setUsers(tempUsers);
@@ -78,7 +81,7 @@ export const SocialNetwork = () => {
       })
   }, []);
 
-  const changeToUsers = () => {
+    const changeToUsers = () => {
     setActiveTab('users');
     setFilterDisplay(users);
     setPlaceholder('Find Buddies');
@@ -96,7 +99,11 @@ export const SocialNetwork = () => {
   const handleChange = event => {
     let activeUsers = activeTab === 'buddies' ? buddies : users;
     let oldList = activeUsers.map(user => {
-      return { imageUrl: user.imageUrl, displayName: user.displayName.toLowerCase() };
+      return {
+        imageUrl: user.imageUrl,
+        displayName: user.displayName.toLowerCase(),
+        spotifyId: user.id
+      };
     });
     if (event !== '') {
       let newList = [];
@@ -109,6 +116,40 @@ export const SocialNetwork = () => {
       setFilterDisplay(activeUsers);
     }
   };
+
+  const removeFriend = (userId) => {
+    axios
+        .post('http://localhost:8080/remove/friend', {
+          user_id: userId,
+        }, {withCredentials: true})
+        .then(res => {
+          if (res.status === 200) {
+            console.log('result', res);
+          }
+        })
+        .catch(error => {
+          console.log('error', error);
+        })
+  }
+
+  const handleRequest = (userId, flag) => {
+    axios
+        .post('http://localhost:8080/update/request', {
+            user_id: userId,
+            flag: flag
+        }, { withCredentials: true})
+        .then(res => {
+          if (res.status === 200) {
+            const tempBuddyRequests = buddyRequests.filter(user => user.spotifyId !== userId);
+            setBuddyRequests(tempBuddyRequests);
+            setFilterDisplay(tempBuddyRequests);
+          }
+        })
+        .catch(error => {
+          console.log('error', error);
+        })
+  }
+
 
   return (
     <div className="social-network">
@@ -180,6 +221,7 @@ export const SocialNetwork = () => {
                 </div>
                 { activeTab === 'buddies' ? (
                  <button
+                     onClick={() => removeFriend(user.spotifyId)}
                    className="social-network--primary social-network--spacer"
                  >
                    REMOVE
@@ -194,8 +236,18 @@ export const SocialNetwork = () => {
                 ) : null }
                 { activeTab === 'buddyRequests' ? (
                   <>
-                    <button className="social-network--primary ">Yay</button>
-                    <button className="social-network--secondary">Nay</button>
+                    <button
+                        className="social-network--primary"
+                        onClick={() => handleRequest(user.spotifyId, true)}
+                    >
+                      Yay
+                    </button>
+                    <button
+                        className="social-network--secondary"
+                        onClick={() => handleRequest(user.spotifyId, false)}
+                    >
+                      Nay
+                    </button>
                  </>
                ) : null }
               </li>
