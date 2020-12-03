@@ -13,9 +13,9 @@ const database = require('./database/database.js');
 const cors = require('cors');
 const MongoClient = require('mongodb').MongoClient;
 const ml = require('./ML/app.js');
-var databaseClient = '';
+let databaseClient = '';
 
-app.use(cors());
+app.use(cors({origin: [constants.appRedirectDomain], credentials: true}));
 app.use(bodyParser.urlencoded({
   extended: true
 }));
