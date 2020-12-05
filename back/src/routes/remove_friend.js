@@ -23,8 +23,8 @@ module.exports = function(req,res,constants,request,helpers,client,user_id) {
 			return;
 		}
 
-		const query = { _id: user_id };
-		const updateFriend = {  $set: { friends: friends } };
+		const query = { _id: curr_user_id };
+		const updateFriend = {  $set: { "friends": friends } };
 
 		const promise = new Promise(function(resolve,reject) {
 			client.collection(constants.database.friends_collection).updateOne(query,updateFriend,function(err, response) {
