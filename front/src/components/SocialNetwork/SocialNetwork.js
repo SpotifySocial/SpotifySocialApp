@@ -118,13 +118,16 @@ export const SocialNetwork = () => {
   };
 
   const removeFriend = (userId) => {
+      console.log('outside', userId);
     axios
         .post('http://localhost:8080/remove/friend', {
           user_id: userId,
         }, {withCredentials: true})
         .then(res => {
           if (res.status === 200) {
-            console.log('result', res);
+              const tempBuddies = buddies.filter(user => user.spotifyId !== userId);
+              setBuddies(tempBuddies);
+              setFilterDisplay(tempBuddies);
           }
         })
         .catch(error => {
