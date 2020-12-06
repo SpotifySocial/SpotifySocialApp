@@ -124,7 +124,7 @@ export const SocialNetwork = () => {
           }, {withCredentials: true})
           .then(res => {
               if (res.status === 200) {
-                  console.log('Success', res);
+                  console.log('result', res);
               }
           })
           .catch(error => {
