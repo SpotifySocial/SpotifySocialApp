@@ -5,10 +5,8 @@ module.exports = function(req,res,constants,request,helpers) {
 		for(const i in data) {
 			const key = req.session.ids[i];
 			const genres = data[i].items.map(artist_data => artist_data['genres']);
-			console.log(key)
-			console.log(genres)
 			const user_data = {};
-			user_data[key] = genres
+			user_data[key] = genres;
 			allData.push(user_data);
 		}
 		res.status(200).send(allData);
