@@ -117,6 +117,21 @@ export const SocialNetwork = () => {
     }
   };
 
+  const sendRequest = (userId) => {
+      axios
+          .post('http://localhost:8080/new/request', {
+              user_id: userId,
+          }, {withCredentials: true})
+          .then(res => {
+              if (res.status === 200) {
+                  console.log('result', res);
+              }
+          })
+          .catch(error => {
+              console.log('error', error);
+          })
+  }
+
   const removeFriend = (userId) => {
     axios
         .post('http://localhost:8080/remove/friend', {
@@ -124,7 +139,9 @@ export const SocialNetwork = () => {
         }, {withCredentials: true})
         .then(res => {
           if (res.status === 200) {
-            console.log('result', res);
+              const tempBuddies = buddies.filter(user => user.spotifyId !== userId);
+              setBuddies(tempBuddies);
+              setFilterDisplay(tempBuddies);
           }
         })
         .catch(error => {
@@ -230,6 +247,7 @@ export const SocialNetwork = () => {
                 { activeTab === 'users' ? (
                   <button
                     className="social-network--secondary social-network--spacer"
+                    onClick={() => sendRequest(user.spotifyId)}
                   >
                     Add
                   </button>

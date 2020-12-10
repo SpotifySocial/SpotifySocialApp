@@ -1,5 +1,6 @@
 module.exports = function(req,res,constants,request,helpers,client,user_id) {
 	const friend_user_id = user_id;
+	const curr_user_id = req.session.user_id;
 	helpers.friends_data(req,res,constants,request,client,helpers).then(friend_data => {
 		let friends = [];
 		for (const data of friend_data.friends) {
@@ -23,7 +24,7 @@ module.exports = function(req,res,constants,request,helpers,client,user_id) {
 		}
 
 		const query = { _id: curr_user_id };
-		const updateFriend = {  $set: { "friends": friends } };
+		const updateFriend = {  $set: { friends: friends } };
 
 		const promise = new Promise(function(resolve,reject) {
 			client.collection(constants.database.friends_collection).updateOne(query,updateFriend,function(err, response) {
@@ -31,7 +32,7 @@ module.exports = function(req,res,constants,request,helpers,client,user_id) {
 				reject({http_code:500,error_message:'Database Error: Could not remove friend'});
 				return;
 			}
-			resolve({http_code:200,message:'Sucessfully removed friend'});
+			resolve({http_code:200,message:'Successfully removed friend'});
 			});
 		});
 
