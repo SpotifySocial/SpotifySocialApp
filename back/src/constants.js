@@ -25,6 +25,7 @@ module.exports = {
 		friends_collection: 'Friends',
 		users_collection: 'AllUsers',
 		token_collection: 'Token',
-		similarity_collection: 'Similarity'
+		similarity_collection: 'Similarity',
+		surprise_collection: 'Surprise'
 	}
 }

@@ -3,5 +3,6 @@ module.exports = {
 	topSongs: require('./top_songs'),
 	topArtists: require('./top_artists'),
 	updateSimilarity: require('./update_similarity'),
-	songsSimilarity: require('./top_songs_of_similar')
+	songsSimilarity: require('./top_songs_of_similar'),
+	updateSurprise:  require('./update_surprise')
 }
