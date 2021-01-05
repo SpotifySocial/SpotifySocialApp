@@ -12,12 +12,12 @@ module.exports = function(req,res,constants,client,helpers) {
 			let friends_id2 = [];
 			let similarity_id2 = [];
 
-			if(db_ids.indexOf(id1) !== -1) {
+			if(db_ids.indexOf(id1) !=== -1) {
 				friends_id1 = users[db_ids.indexOf(id1)].friends
 				similarity_id1 = users[db_ids.indexOf(id1)].similarity
 			}
 
-			if(db_ids.indexOf(id2) !== -1) {
+			if(db_ids.indexOf(id2) !=== -1) {
 				friends_id2 = users[db_ids.indexOf(id2)].friends
 				similarity_id2 = users[db_ids.indexOf(id2)].similarity
 			}
@@ -26,20 +26,20 @@ module.exports = function(req,res,constants,client,helpers) {
 			let index_id2 = -1;
 
 			for(let i in friends_id1) {
-				if(friends_id1[i] == id2){
+				if(friends_id1[i] === id2){
 					index_id1 = i;
 					break;
 				}
 			}
 
 			for(let i in friends_id2) {
-				if(friends_id2[i] == id1){
+				if(friends_id2[i] === id1){
 					index_id2 = i;
 					break;
 				}
 			}
 
-			if(index_id1 == -1) {
+			if(index_id1 === -1) {
 				friends_id1.push(id2);
 				similarity_id1.push(similarity);
 			}
@@ -48,7 +48,7 @@ module.exports = function(req,res,constants,client,helpers) {
 				similarity_id1[index_id1] = similarity;
 			}
 
-			if(index_id2 == -1) {
+			if(index_id2 === -1) {
 				friends_id2.push(id1);
 				similarity_id2.push(similarity);
 			}
