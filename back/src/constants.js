@@ -10,7 +10,7 @@ module.exports = {
 	spotifyUserUrl: 'https://api.spotify.com/v1/users/id',
 	spotifyArtistInfoUrl: 'https://api.spotify.com/v1/artists/',
 	spotifyGetTrack: 'https://api.spotify.com/v1/tracks/',
-	spotifyGetTrackAnalysis: 'https://api.spotify.com/v1/audio-features/?ids=',
+	spotifyGetTrackFeatures: 'https://api.spotify.com/v1/audio-features/?ids=',
 	backendRedirectDomain: 'http://localhost:'.concat(process.env.PORT),
 	backendRedirectRoute: '/',
 	appRedirectDomain: 'http://localhost:3000',
@@ -25,6 +25,7 @@ module.exports = {
 		friends_collection: 'Friends',
 		users_collection: 'AllUsers',
 		token_collection: 'Token',
-		similarity_collection: 'Similarity'
+		similarity_collection: 'Similarity',
+		surprise_collection: 'Surprise'
 	}
 }

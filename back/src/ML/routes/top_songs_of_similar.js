@@ -57,7 +57,7 @@ module.exports = function(req,res,constants,client,helpers,request) {
 						res.status(400).send('Could not get find user');
 						return;
 					}
-					promises.push(helpers.fetchSongAnalysis(constants,request,all_tokens[found], song_ids[i]))
+					promises.push(helpers.fetchAudioFeatures(constants,request,all_tokens[found], song_ids[i]))
 				}
 
 				Promise.all(promises).then(audio_data => {
