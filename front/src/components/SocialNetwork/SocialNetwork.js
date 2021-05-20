@@ -68,7 +68,7 @@ export const SocialNetwork = () => {
             return {
               displayName: user.display_name,
               spotifyUrl: user.spotifyUrl,
-              imageUrl: user.images[0].url,
+              imageUrl: user.images[0]?.url,
               spotifyId: user.id
             };
           });
